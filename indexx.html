@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Proforma Ágora Comunicadores</title>
+
+<style>
+
+/* --------------------- */
+/* BASE GENERAL          */
+/* --------------------- */
+
+body {
+    margin: 0;
+    background: #f2f4f7;
+    font-family: Arial, sans-serif;
+    color: #222;
+}
+
+.container {
+    max-width: 860px;
+    margin: auto;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* --------------------- */
+/* CABECERA              */
+/* --------------------- */
+
+.header {
+    background: #122f98;
+    color: white;
+    padding: 25px 20px;
+    border-radius: 8px;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+/* LOGO */
+.header-logo {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 6px rgba(255,255,255,0.25);
+    flex: 1;
+}
+.header-logo img {
+    width: 140px;
+}
+
+/* INFORMACIÓN IMPRESIÓN (CENTRO) */
+.header-middle {
+    flex: 2;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* INFORMACIÓN EMPRESA (DERECHA) */
+.header-info {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: right;
+    min-width: 220px;
+}
+
+/* RUC */
+.ruc-box {
+    background: white;
+    color: #122f98;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 6px 14px;
+    width: fit-content;
+    margin-top: 10px;
+    margin-left: auto;
+    font-size: 16px;
+}
+
+/* --------------------- */
+/* MARCA DE AGUA         */
+/* --------------------- */
+
+.marca-agua img {
+    position: absolute;
+    width: 60%;
+    opacity: 0.12;
+    top: 45%;
+    left: 20%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* --------------------- */
+/* SECCIONES CLIENTE     */
+/* --------------------- */
+
+.section {
+    margin-top: 25px;
+}
+
+.section-title {
+    font-weight: bold;
+    color: #122f98;
+    margin-bottom: 6px;
+}
+
+.section input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #666;
+    padding: 6px 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* FECHA */
+.fecha-box {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.fecha-box input {
+    width: 150px;
+    border: none;
+    border-bottom: 1px solid #666;
+    padding: 5px;
+}
+
+/* TABLA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #122f98;
+    color: white;
+    padding: 10px 6px;
+    font-size: 14px;
+}
+
+td {
+    border: 1px solid #122f98;
+    padding: 6px;
+}
+
+td input {
+    width: 100%;
+    border: none;
+    font-size: 14px;
+}
+
+/* BOTONES */
+.btn {
+    background: #122f98;
+    color: white;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 10px 5px 0 0;
+}
+
+/* TOTAL */
+.total-box {
+    max-width: 340px;
+    margin-left: auto;
+    margin-top: 25px;
+}
+
+.total-box div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 30px;
+    font-size: 13px;
+    position: relative;
+}
+
+.footer img {
+    max-width: 130px;
+}
+
+.qr {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90px;
+}
+
+/* --------------------- */
+/* RESPONSIVE MÓVIL      */
+/* --------------------- */
+
+@media (max-width: 700px) {
+
+    .header-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-logo,
+    .header-middle,
+    .header-info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-info {
+        order: 3;
+        margin-top: 10px;
+    }
+
+    .header-middle {
+        order: 2;
+    }
+
+    .header-logo {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .ruc-box {
+        margin: 10px auto 0 auto;
+    }
+
+    .marca-agua img {
+        width: 90%;
+        left: 5%;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+}
+
+/* IMPRESIÓN */
+@media print {
+    body { background: white; }
+    .container { box-shadow: none; padding: 0; width: 100%; }
+    .btn { display: none; }
+    .header { border-radius: 0; padding: 20px; }
+    .qr { bottom: 20px; top: auto !important; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- CABECERA -->
+    <div class="header">
+
+        <div class="header-flex">
+
+            <!-- IZQUIERDA -->
+            <div class="header-logo">
+                <img src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png">
+            </div>
+
+            <!-- CENTRO: INFORMACIÓN IMPRESIÓN -->
+            <div class="header-middle">
+                <strong>VOLANTES - TARJETAS PERSONALES</strong> <br>
+                MEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES <br>
+                TRÍPTICOS - FOTOCHCKS - FOLDERS - STICKER - FORMATOS <br>
+                VINILES - BROCHURE - AGENDAS - TAZAS - CAJAS <br>
+                <strong>PUBLICIDAD EN GENERAL</strong>
+            </div>
+
+            <!-- DERECHA: INFORMACIÓN EMPRESA -->
+            <div class="header-info">
+                Jr. Las Ortigas 1216 Urb. Las Flores de Lima <br>
+                ☏ 951 275 458 / 951 197 487 <br>
+                agoracomunicadorese2@gmail.com <br>
+                agoracomunicadoreseirl@gmail.com
+                <div class="ruc-box">RUC 20605031829</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MARCA DE AGUA -->
+    <div class="marca-agua">
+        <img src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png">
+    </div>
+
+    <!-- CLIENTE -->
+    <div class="section">
+        <div class="section-title">Datos del Cliente</div>
+
+        Sr(es): <input>
+        Dirección: <input>
+        Teléfono: <input>
+    </div>
+
+    <!-- FECHA -->
+    <div class="fecha-box">
+        <b>Fecha:</b>
+        <input id="fecha" type="text">
+    </div>
+
+    <!-- TABLA -->
+    <table id="tabla">
+        <tr>
+            <th style="width:10%;">CANT.</th>
+            <th>DESCRIPCIÓN</th>
+            <th style="width:15%;">P. UNIT</th>
+            <th style="width:15%;">TOTAL</th>
+        </tr>
+    </table>
+
+    <div class="btn" onclick="agregarFila()">+ Agregar producto</div>
+    <div class="btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</div>
+
+    <!-- TOTAL -->
+    <div class="total-box">
+        <div><span>TOTAL S/.</span> <span id="totalGeneral">0.00</span></div>
+        <div><span>A CUENTA S/.</span><span>________</span></div>
+        <div><span>SALDO S/.</span><span>________</span></div>
+    </div>
+
+    <!-- PIE -->
+    <div class="footer">
+        <img src="https://i.postimg.cc/ncTKjPLN/logo-azul.png">
+        <img class="qr" src="https://i.postimg.cc/2yDdhpvs/QR-agora-200x.png">
+        <br><br>
+        Nota: Esta proforma tiene validez 7 días.<br>
+        Una vez realizado el adelanto, no hay opción de devolución.
+    </div>
+
+</div>
+
+<script>
+function fechaActual() {
+    const h = new Date();
+    return `${("0"+h.getDate()).slice(-2)}/${("0"+(h.getMonth()+1)).slice(-2)}/${h.getFullYear()}`;
+}
+document.getElementById("fecha").value = fechaActual();
+
+function agregarFila() {
+    const tabla = document.getElementById("tabla");
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+        <td><input type="number" min="1" value="1" oninput="calcular()"></td>
+        <td><input type="text" placeholder="Descripción" oninput="calcular()"></td>
+        <td><input type="number" min="0" value="0" oninput="calcular()"></td>
+        <td class="totalItem">0.00</td>
+    `;
+
+    tabla.appendChild(fila);
+    calcular();
+}
+
+function calcular() {
+    let total = 0;
+    document.querySelectorAll("#tabla tr").forEach((fila, i) => {
+        if (i === 0) return;
+
+        const c = Number(fila.children[0].children[0].value);
+        const p = Number(fila.children[2].children[0].value);
+
+        const subtotal = c * p;
+        fila.children[3].textContent = subtotal.toFixed(2);
+        total += subtotal;
+    });
+
+    document.getElementById("totalGeneral").textContent = total.toFixed(2);
+}
+</script>
+
+</body>
+</html>
