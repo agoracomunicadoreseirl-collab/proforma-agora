@@ -194,7 +194,6 @@ td input {
 .footer {
     margin-top: 30px;
     font-size: 13px;
-    position: relative;
 }
 
 .footer img {
@@ -202,9 +201,7 @@ td input {
 }
 
 .qr {
-    position: absolute;
-    right: 0;
-    top: 0;
+    float: right;
     width: 90px;
 }
 
@@ -213,44 +210,15 @@ td input {
 /* --------------------- */
 
 @media (max-width: 700px) {
-
     .header-flex {
         flex-direction: column;
         text-align: center;
     }
-
-    .header-logo,
-    .header-middle,
     .header-info {
-        width: 100%;
         text-align: center;
     }
-
-    .header-info {
-        order: 3;
-        margin-top: 10px;
-    }
-
-    .header-middle {
-        order: 2;
-    }
-
-    .header-logo {
-        order: 1;
-        margin-bottom: 10px;
-    }
-
     .ruc-box {
-        margin: 10px auto 0 auto;
-    }
-
-    .marca-agua img {
-        width: 90%;
-        left: 5%;
-    }
-
-    th, td {
-        font-size: 12px;
+        margin: 10px auto;
     }
 }
 
@@ -259,8 +227,6 @@ td input {
     body { background: white; }
     .container { box-shadow: none; padding: 0; width: 100%; }
     .btn { display: none; }
-    .header { border-radius: 0; padding: 20px; }
-    .qr { bottom: 20px; top: auto !important; }
 }
 
 </style>
@@ -272,45 +238,37 @@ td input {
 
     <!-- CABECERA -->
     <div class="header">
-
         <div class="header-flex">
 
-            <!-- IZQUIERDA -->
             <div class="header-logo">
                 <img src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png">
             </div>
 
-            <!-- CENTRO: INFORMACIÓN IMPRESIÓN -->
             <div class="header-middle">
-                <strong>VOLANTES - TARJETAS PERSONALES</strong> <br>
-                MEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES <br>
-                TRÍPTICOS - FOTOCHCKS - FOLDERS - STICKER - FORMATOS <br>
-                VINILES - BROCHURE - AGENDAS - TAZAS - CAJAS <br>
+                <strong>VOLANTES - TARJETAS PERSONALES</strong><br>
+                MEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES<br>
+                TRÍPTICOS - FOTOCHCKS - FOLDERS - STICKER - FORMATOS<br>
+                VINILES - BROCHURE - AGENDAS - TAZAS - CAJAS<br>
                 <strong>PUBLICIDAD EN GENERAL</strong>
             </div>
 
-            <!-- DERECHA: INFORMACIÓN EMPRESA -->
             <div class="header-info">
-                Jr. Las Ortigas 1216 Urb. Las Flores de Lima <br>
-                ☏ 951 275 458 / 951 197 487 <br>
-                agoracomunicadorese2@gmail.com <br>
+                <strong>PROFORMA N°</strong><br>
+                <input id="numeroProforma" type="text" placeholder="0001-2026"
+                    style="width:100%;border:none;border-bottom:2px solid white;background:transparent;color:white;text-align:right;margin-bottom:8px;">
+                Jr. Las Ortigas 1216 Urb. Las Flores de Lima<br>
+                ☏ 951 275 458 / 951 197 487<br>
+                agoracomunicadorese2@gmail.com<br>
                 agoracomunicadoreseirl@gmail.com
                 <div class="ruc-box">RUC 20605031829</div>
             </div>
 
         </div>
-
-    </div>
-
-    <!-- MARCA DE AGUA -->
-    <div class="marca-agua">
-        <img src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png">
     </div>
 
     <!-- CLIENTE -->
     <div class="section">
         <div class="section-title">Datos del Cliente</div>
-
         Sr(es): <input>
         Dirección: <input>
         Teléfono: <input>
@@ -337,18 +295,37 @@ td input {
 
     <!-- TOTAL -->
     <div class="total-box">
-        <div><span>TOTAL S/.</span> <span id="totalGeneral">0.00</span></div>
+        <div><span>TOTAL S/.</span><span id="totalGeneral">0.00</span></div>
         <div><span>A CUENTA S/.</span><span>________</span></div>
         <div><span>SALDO S/.</span><span>________</span></div>
     </div>
 
-    <!-- PIE -->
+    <!-- FOOTER -->
     <div class="footer">
+
         <img src="https://i.postimg.cc/ncTKjPLN/logo-azul.png">
         <img class="qr" src="https://i.postimg.cc/2yDdhpvs/QR-agora-200x.png">
-        <br><br>
+
+        <div style="margin-top:8px;">
+            <strong>Cuenta Bancaria:</strong> 1917301768030<br>
+            <strong>CCI:</strong> 00219100730176803054
+        </div>
+
+        <br>
         Nota: Esta proforma tiene validez 7 días.<br>
+        El trabajo se realiza con un <strong>50% de adelanto</strong>.<br>
         Una vez realizado el adelanto, no hay opción de devolución.
+
+        <!-- FECHA DE ENTREGA MEJORADA -->
+        <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+            <div style="border:1px solid #0205F3; padding:10px 14px; border-radius:6px; text-align:right; background:#f9f9ff;">
+                <div style="font-weight:bold; color:#0205F3; margin-bottom:6px;">
+                    Fecha de entrega
+                </div>
+                <input type="date" style="border:none; border-bottom:1px solid #0205F3; font-size:14px;">
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -363,14 +340,12 @@ document.getElementById("fecha").value = fechaActual();
 function agregarFila() {
     const tabla = document.getElementById("tabla");
     const fila = document.createElement("tr");
-
     fila.innerHTML = `
         <td><input type="number" min="1" value="1" oninput="calcular()"></td>
-        <td><input type="text" placeholder="Descripción" oninput="calcular()"></td>
+        <td><input type="text" oninput="calcular()"></td>
         <td><input type="number" min="0" value="0" oninput="calcular()"></td>
         <td class="totalItem">0.00</td>
     `;
-
     tabla.appendChild(fila);
     calcular();
 }
@@ -379,21 +354,15 @@ function calcular() {
     let total = 0;
     document.querySelectorAll("#tabla tr").forEach((fila, i) => {
         if (i === 0) return;
-
         const c = Number(fila.children[0].children[0].value);
         const p = Number(fila.children[2].children[0].value);
-
         const subtotal = c * p;
         fila.children[3].textContent = subtotal.toFixed(2);
         total += subtotal;
     });
-
     document.getElementById("totalGeneral").textContent = total.toFixed(2);
 }
 </script>
 
 </body>
 </html>
-
-
-
