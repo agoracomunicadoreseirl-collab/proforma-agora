@@ -272,14 +272,90 @@
   .footer img { max-width: 130px; }
   .qr { float: right; width: 90px; }
 
+  /* ========================= */
+  /* ✅ WRAPPER TABLA           */
+  /* (sirve para desktop+tablet)*/
+  /* ========================= */
+  .table-wrap{
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 700px) {
+    .container{ padding: 10px; }
+
     .header-flex { flex-direction: column; text-align: center; }
     .header-info { text-align: center; }
     .ruc-box { margin: 10px auto; }
     .grid-2 { grid-template-columns: 1fr; }
     .totals-wrap { grid-template-columns: 1fr; }
     .checks { grid-template-columns: 1fr; }
+
+    /* Botones full width en móvil */
+    .btn{ width: 100%; justify-content:center; margin-right: 0; }
+
+    /* ✅ Tabla en modo “tarjetas” */
+    .table-wrap{ border: none; overflow: visible; }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      margin-top: 0;
+    }
+
+    table tr:first-child { display: none; } /* oculta cabecera */
+
+    table tr {
+      display: block;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    table td {
+      display: flex;
+      gap: 10px;
+      border: none;
+      padding: 8px 0;
+      align-items: center;
+    }
+
+    table td::before{
+      content: attr(data-label);
+      font-weight: bold;
+      min-width: 105px;
+      color: #111827;
+      font-size: 12px;
+    }
+
+    table td input{
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    table td.totalItem{
+      font-weight: bold;
+      justify-content: space-between;
+    }
+
+    table td.acciones{
+      justify-content: center;
+      padding-top: 10px;
+    }
+
+    .btn-icon{
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+    }
   }
 
   /* IMPRESIÓN (sin guiones bajos + branding ligero) */
@@ -306,6 +382,9 @@
 
     /* Ocultar columna ACCIONES */
     th.acciones-col, td.acciones { display: none !important; }
+
+    /* Quitar borde del wrapper tabla en impresión */
+    .table-wrap{ border: none !important; overflow: visible !important; }
 
     /* Header branding ligero */
     .header {
@@ -469,16 +548,18 @@
   <div class="section">
     <div class="section-title">Detalle de productos / servicios</div>
 
-    <table id="tabla">
-      <tr>
-        <th style="width:22%;">PRODUCTO</th>
-        <th>DESCRIPCIÓN</th>
-        <th style="width:10%;">CANT.</th>
-        <th style="width:12%;">P. UNIT</th>
-        <th style="width:12%;">TOTAL</th>
-        <th class="acciones-col" style="width:14%;">ACCIONES</th>
-      </tr>
-    </table>
+    <div class="table-wrap">
+      <table id="tabla">
+        <tr>
+          <th style="width:22%;">PRODUCTO</th>
+          <th>DESCRIPCIÓN</th>
+          <th style="width:10%;">CANT.</th>
+          <th style="width:12%;">P. UNIT</th>
+          <th style="width:12%;">TOTAL</th>
+          <th class="acciones-col" style="width:14%;">ACCIONES</th>
+        </tr>
+      </table>
+    </div>
 
     <button class="btn no-print" type="button" onclick="agregarFila()">+ Agregar ítem</button>
     <button class="btn secondary no-print" type="button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
@@ -627,12 +708,25 @@ function crearFila(data = {}){
 
   const tr = document.createElement("tr");
   tr.innerHTML = `
-    <td><input type="text" class="producto" value="${escapeHtml(producto)}" placeholder="Ej: Volantes A5"></td>
-    <td><input type="text" class="desc" value="${escapeHtml(desc)}" placeholder="Detalles: material, medida, acabado"></td>
-    <td><input type="number" class="cant center" min="0" step="1" value="${escapeHtml(cant)}" oninput="calcular()"></td>
-    <td><input type="number" class="precio num" min="0" step="0.01" value="${escapeHtml(precio)}" oninput="calcular()"></td>
-    <td class="totalItem num">0.00</td>
-    <td class="acciones">
+    <td data-label="Producto">
+      <input type="text" class="producto" value="${escapeHtml(producto)}" placeholder="Ej: Volantes A5">
+    </td>
+
+    <td data-label="Descripción">
+      <input type="text" class="desc" value="${escapeHtml(desc)}" placeholder="Detalles: material, medida, acabado">
+    </td>
+
+    <td data-label="Cant.">
+      <input type="number" class="cant center" min="0" step="1" value="${escapeHtml(cant)}" oninput="calcular()">
+    </td>
+
+    <td data-label="P. Unit">
+      <input type="number" class="precio num" min="0" step="0.01" value="${escapeHtml(precio)}" oninput="calcular()">
+    </td>
+
+    <td data-label="Total" class="totalItem num">0.00</td>
+
+    <td data-label="Acciones" class="acciones">
       <button type="button" class="btn-icon" title="Duplicar fila" onclick="duplicarFila(this)">⧉</button>
       <button type="button" class="btn-icon" title="Eliminar fila" onclick="eliminarFila(this)">✕</button>
     </td>
