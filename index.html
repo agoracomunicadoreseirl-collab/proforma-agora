@@ -272,10 +272,7 @@
   .footer img { max-width: 130px; }
   .qr { float: right; width: 90px; }
 
-  /* ========================= */
-  /* ✅ WRAPPER TABLA           */
-  /* (sirve para desktop+tablet)*/
-  /* ========================= */
+  /* WRAPPER TABLA */
   .table-wrap{
     width: 100%;
     overflow-x: auto;
@@ -296,15 +293,23 @@
     .totals-wrap { grid-template-columns: 1fr; }
     .checks { grid-template-columns: 1fr; }
 
-    /* Botones full width en móvil */
+    /* ✅ botones full width */
     .btn{ width: 100%; justify-content:center; margin-right: 0; }
 
-    /* ✅ Tabla en modo “tarjetas” */
+    /* ✅ menos altura en pills y menos separación */
+    .inline-row{ gap: 8px; }
+    .pill{
+      padding: 6px 8px;
+      border-radius: 10px;
+    }
+    .pill input{ font-size: 13px; }
+
+    /* ✅ Tabla en modo tarjetas */
     .table-wrap{ border: none; overflow: visible; }
 
     table {
       border-collapse: separate;
-      border-spacing: 0 10px;
+      border-spacing: 0 8px;   /* ✅ menos espacio entre tarjetas */
       margin-top: 0;
     }
 
@@ -318,47 +323,69 @@
       background: #fff;
     }
 
+    /* ✅ filas más compactas */
     table td {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       border: none;
-      padding: 8px 0;
+      padding: 6px 0;         /* ✅ menos alto por fila */
       align-items: center;
     }
 
+    /* ✅ etiqueta más angosta */
     table td::before{
       content: attr(data-label);
       font-weight: bold;
-      min-width: 105px;
+      min-width: 88px;        /* ✅ antes 105px */
       color: #111827;
       font-size: 12px;
+      line-height: 1.1;
     }
 
+    /* ✅ inputs más delgados */
     table td input{
       border: 1px solid #e5e7eb;
       border-radius: 10px;
-      padding: 10px;
+      padding: 7px 10px;      /* ✅ menos padding */
       background: #fff;
+      font-size: 13px;
     }
 
+    /* ✅ Cantidad y Precio más pequeños */
+    td[data-label="Cant."] input,
+    td[data-label="P. Unit"] input{
+      max-width: 130px;
+      padding: 6px 10px;
+    }
+
+    /* ✅ Total más compacto */
     table td.totalItem{
       font-weight: bold;
       justify-content: space-between;
+      padding-top: 6px;
+      padding-bottom: 4px;
     }
 
+    /* ✅ Acciones compactas */
     table td.acciones{
       justify-content: center;
-      padding-top: 10px;
+      padding-top: 8px;
     }
 
     .btn-icon{
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
+    }
+
+    /* ✅ Ajuste de texto en header-middle para que no se vea gigante */
+    .header-middle{
+      font-size: 12px;
+      line-height: 1.25;
     }
   }
 
-  /* IMPRESIÓN (sin guiones bajos + branding ligero) */
+  /* IMPRESIÓN */
   @media print {
     @page { size: A4; margin: 12mm; }
 
@@ -383,7 +410,6 @@
     /* Ocultar columna ACCIONES */
     th.acciones-col, td.acciones { display: none !important; }
 
-    /* Quitar borde del wrapper tabla en impresión */
     .table-wrap{ border: none !important; overflow: visible !important; }
 
     /* Header branding ligero */
@@ -659,12 +685,8 @@ function pad2(n){ return String(n).padStart(2, "0"); }
 function fechaDDMMYYYY(d){
   return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}`;
 }
-function soloNumerosTelefono(input) {
-  input.value = input.value.replace(/\D/g, "");
-}
-function soloNumerosDoc(input) {
-  input.value = input.value.replace(/\D/g, "");
-}
+function soloNumerosTelefono(input) { input.value = input.value.replace(/\D/g, ""); }
+function soloNumerosDoc(input) { input.value = input.value.replace(/\D/g, ""); }
 function parseNumber(v){
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
