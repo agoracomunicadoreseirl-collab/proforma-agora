@@ -3,478 +3,522 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Proforma Ágora Comunicadores — Modelo Pro (sin dropdown)</title>
+<title>Proforma Ágora Comunicadores — Modelo Pro</title>
 
 <style>
-  body {
-    margin: 0;
-    background: #FFFFFF;
-    font-family: Arial, sans-serif;
-    color: #222;
+  body{
+    margin:0;
+    background:#FFFFFF;
+    font-family:Arial, sans-serif;
+    color:#222;
   }
 
-  .container {
-    max-width: 860px;
-    margin: auto;
-    padding: 15px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    position: relative;
+  .container{
+    max-width:860px;
+    margin:auto;
+    padding:15px;
+    background:white;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    position:relative;
   }
 
   /* CABECERA */
-  .header {
-    background: #0205F3;
-    color: white;
-    padding: 25px 20px;
-    border-radius: 8px;
+  .header{
+    background:#0205F3;
+    color:white;
+    padding:25px 20px;
+    border-radius:8px;
   }
 
-  .header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 25px;
+  .header-flex{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
   }
 
-  .header-logo {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 0 6px rgba(255,255,255,0.25);
-    flex: 1;
+  .header-logo{
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    box-shadow:0 0 6px rgba(255,255,255,0.25);
+    flex:1;
   }
-  .header-logo img { width: 140px; }
+  .header-logo img{ width:140px; }
 
-  .header-middle {
-    flex: 2;
-    text-align: center;
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .header-info {
-    flex: 1;
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: right;
-    min-width: 220px;
+  .header-middle{
+    flex:2;
+    text-align:center;
+    font-size:13px;
+    line-height:1.4;
   }
 
-  .ruc-box {
-    background: white;
-    color: #0205F3;
-    font-weight: bold;
-    border-radius: 6px;
-    padding: 6px 14px;
-    width: fit-content;
-    margin-top: 10px;
-    margin-left: auto;
-    font-size: 16px;
+  .header-info{
+    flex:1;
+    font-size:13px;
+    line-height:1.5;
+    text-align:right;
+    min-width:220px;
+  }
+
+  .ruc-box{
+    background:white;
+    color:#0205F3;
+    font-weight:bold;
+    border-radius:6px;
+    padding:6px 14px;
+    width:fit-content;
+    margin-top:10px;
+    margin-left:auto;
+    font-size:16px;
   }
 
   /* SECCIONES */
-  .section { margin-top: 22px; }
+  .section{ margin-top:22px; }
 
-  .section-title {
-    font-weight: bold;
-    color: #0205F3;
-    margin-bottom: 8px;
-    font-size: 15px;
+  .section-title{
+    font-weight:bold;
+    color:#0205F3;
+    margin-bottom:8px;
+    font-size:15px;
   }
 
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
   }
 
-  .field label {
-    display: block;
-    font-size: 12px;
-    color: #444;
-    margin-bottom: 4px;
+  .field label{
+    display:block;
+    font-size:12px;
+    color:#444;
+    margin-bottom:4px;
   }
 
-  .field input, .field textarea {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #666;
-    padding: 8px 4px;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
+  .field input, .field textarea{
+    width:100%;
+    border:none;
+    border-bottom:1px solid #666;
+    padding:8px 4px;
+    font-size:14px;
+    outline:none;
+    background:transparent;
   }
 
-  .field textarea {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px 10px;
-    min-height: 64px;
-    resize: vertical;
+  .field textarea{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:10px 10px;
+    min-height:64px;
+    resize:vertical;
   }
 
-  .inline-row {
-    display: flex;
-    gap: 10px;
-    align-items: end;
-    flex-wrap: wrap;
+  .inline-row{
+    display:flex;
+    gap:10px;
+    align-items:end;
+    flex-wrap:wrap;
   }
 
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #f3f4ff;
-    border: 1px solid #dfe1ff;
-    padding: 8px 10px;
-    border-radius: 10px;
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#f3f4ff;
+    border:1px solid #dfe1ff;
+    padding:8px 10px;
+    border-radius:10px;
   }
 
   /* TABLA */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 12px;
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
   }
 
-  th {
-    background: #0205F3;
-    color: white;
-    padding: 10px 6px;
-    font-size: 13px;
-    text-align: left;
+  th{
+    background:#0205F3;
+    color:white;
+    padding:10px 6px;
+    font-size:13px;
+    text-align:left;
   }
 
-  td {
-    border: 1px solid #0205F3;
-    padding: 6px;
-    vertical-align: middle;
+  td{
+    border:1px solid #0205F3;
+    padding:6px;
+    vertical-align:middle;
   }
 
-  td input {
-    width: 100%;
-    border: none;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
+  td input{
+    width:100%;
+    border:none;
+    font-size:14px;
+    outline:none;
+    background:transparent;
   }
 
-  .num { text-align: right; }
-  .center { text-align: center; }
+  .num{ text-align:right; }
+  .center{ text-align:center; }
 
   /* BOTONES */
-  .btn {
-    background: #0205F3;
-    color: white;
-    padding: 10px 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 10px 8px 0 0;
-    border: none;
+  .btn{
+    background:#0205F3;
+    color:white;
+    padding:10px 14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    margin:10px 8px 0 0;
+    border:none;
   }
-  .btn.secondary { background: #111827; }
-  .btn.light {
-    background: #f3f4ff;
-    color: #0205F3;
-    border: 1px solid #dfe1ff;
+  .btn.secondary{ background:#111827; }
+  .btn.light{
+    background:#f3f4ff;
+    color:#0205F3;
+    border:1px solid #dfe1ff;
   }
 
   /* ACCIONES */
-  .acciones { text-align: center; white-space: nowrap; }
+  .acciones{ text-align:center; white-space:nowrap; }
 
-  .btn-icon {
-    background: transparent;
-    border: 1px solid #0205F3;
-    color: #0205F3;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
+  .btn-icon{
+    background:transparent;
+    border:1px solid #0205F3;
+    color:#0205F3;
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 2px;
   }
-  .btn-icon:hover { background: #0205F3; color: white; }
+  .btn-icon:hover{ background:#0205F3; color:white; }
 
   /* TOTALES */
-  .totals-wrap {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 14px;
-    margin-top: 18px;
-    align-items: start;
+  .totals-wrap{
+    display:grid;
+    grid-template-columns:1fr 340px;
+    gap:14px;
+    margin-top:18px;
+    align-items:start;
   }
 
-  .note-box {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 12px 12px;
-    background: #fafafa;
-    font-size: 13px;
-    line-height: 1.45;
+  .note-box{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:12px 12px;
+    background:#fafafa;
+    font-size:13px;
+    line-height:1.45;
   }
 
-  .total-box {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 14px 14px;
+  .total-box{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:14px 14px;
   }
 
-  .total-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
-    margin-bottom: 10px;
+  .total-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:15px;
+    margin-bottom:10px;
   }
-  .total-row strong { font-size: 16px; }
+  .total-row strong{ font-size:16px; }
 
-  .total-row input {
-    width: 140px;
-    border: none;
-    border-bottom: 1px solid #666;
-    text-align: right;
-    font-size: 15px;
-    outline: none;
-    background: transparent;
+  .total-row input{
+    width:140px;
+    border:none;
+    border-bottom:1px solid #666;
+    text-align:right;
+    font-size:15px;
+    outline:none;
+    background:transparent;
   }
 
   /* CONDICIONES */
-  .checks {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+  .checks{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
   }
-  .check {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 10px 10px;
-    background: #fff;
+  .check{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:10px 10px;
+    background:#fff;
   }
-  .check input { width: 18px; height: 18px; }
+  .check input{ width:18px; height:18px; }
 
   /* FOOTER */
-  .footer {
-    margin-top: 24px;
-    font-size: 13px;
+  .footer{
+    margin-top:24px;
+    font-size:13px;
   }
-  .footer img { max-width: 130px; }
-  .qr { float: right; width: 90px; }
+  .footer img{ max-width:130px; }
+  .qr{ float:right; width:90px; }
 
   /* WRAPPER TABLA */
   .table-wrap{
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    margin-top: 10px;
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    margin-top:10px;
+  }
+
+  /* ====== Helpers para “modo móvil” dentro de la tabla (NO afecta web) ====== */
+  .m-label{ display:none; }
+  .m-row{ display:block; } /* web: normal */
+
+  .actions-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
   }
 
   /* RESPONSIVE */
-  @media (max-width: 700px) {
-    .container{ padding: 10px; }
+  @media (max-width: 700px){
+    .container{ padding:10px; }
 
-    .header-flex { flex-direction: column; text-align: center; }
-    .header-info { text-align: center; }
-    .ruc-box { margin: 10px auto; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .totals-wrap { grid-template-columns: 1fr; }
-    .checks { grid-template-columns: 1fr; }
+    .header-flex{ flex-direction:column; text-align:center; }
+    .header-info{ text-align:center; }
+    .ruc-box{ margin:10px auto; }
+    .grid-2{ grid-template-columns:1fr; }
+    .totals-wrap{ grid-template-columns:1fr; }
+    .checks{ grid-template-columns:1fr; }
 
-    /* ✅ botones full width */
-    .btn{ width: 100%; justify-content:center; margin-right: 0; }
+    /* botones full width */
+    .btn{ width:100%; justify-content:center; margin-right:0; }
 
-    /* ✅ menos altura en pills y menos separación */
-    .inline-row{ gap: 8px; }
-    .pill{
-      padding: 6px 8px;
-      border-radius: 10px;
-    }
-    .pill input{ font-size: 13px; }
+    /* pills más compactos */
+    .inline-row{ gap:8px; }
+    .pill{ padding:6px 8px; border-radius:10px; }
+    .pill input{ font-size:13px; }
 
-    /* ✅ Tabla en modo tarjetas */
-    .table-wrap{ border: none; overflow: visible; }
+    /* Ajuste header-middle */
+    .header-middle{ font-size:12px; line-height:1.25; }
 
-    table {
-      border-collapse: separate;
-      border-spacing: 0 8px;   /* ✅ menos espacio entre tarjetas */
-      margin-top: 0;
-    }
+    /* === Detalle de productos en “tarjetas” SOLO móvil === */
+    .table-wrap{ border:none; overflow:visible; }
 
-    table tr:first-child { display: none; } /* oculta cabecera */
-
-    table tr {
-      display: block;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 10px;
-      background: #fff;
+    table{
+      border-collapse:separate;
+      border-spacing:0 10px;
+      margin-top:0;
     }
 
-    /* ✅ filas más compactas */
-    table td {
-      display: flex;
-      gap: 8px;
-      border: none;
-      padding: 6px 0;         /* ✅ menos alto por fila */
-      align-items: center;
+    table tr:first-child{ display:none; } /* oculta cabecera */
+
+    table tr{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:12px;
+      background:#fff;
     }
 
-    /* ✅ etiqueta más angosta */
-    table td::before{
-      content: attr(data-label);
-      font-weight: bold;
-      min-width: 88px;        /* ✅ antes 105px */
-      color: #111827;
-      font-size: 12px;
-      line-height: 1.1;
+    table td{
+      display:block;
+      border:none;
+      padding:0;
     }
 
-    /* ✅ inputs más delgados */
+    /* 1) Producto y 2) Descripción a ancho completo */
+    td[data-label="Producto"],
+    td[data-label="Descripción"],
+    td[data-label="Total"],
+    td[data-label="Acciones"]{
+      grid-column:1 / -1;
+    }
+
+    /* Etiquetas visibles en móvil */
+    .m-label{
+      display:inline-block;
+      font-weight:700;
+      font-size:13px;
+      color:#111827;
+      white-space:nowrap;
+    }
+
+    /* Fila tipo “label a la izquierda + input a la derecha” */
+    .m-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    /* Para Producto/Descripción: label un poco más ancho */
+    td[data-label="Producto"] .m-label,
+    td[data-label="Descripción"] .m-label{
+      min-width:92px;
+    }
+
+    /* Para Cant y P.Unit: label corto */
+    td[data-label="Cant."] .m-label,
+    td[data-label="P. Unit"] .m-label{
+      min-width:56px;
+    }
+
+    /* Inputs en móvil (más delgados) */
     table td input{
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 7px 10px;      /* ✅ menos padding */
-      background: #fff;
-      font-size: 13px;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:8px 12px;
+      background:#fff;
+      font-size:14px;
+      height:40px;
+      box-sizing:border-box;
     }
 
-    /* ✅ Cantidad y Precio más pequeños */
+    /* Cant y P.Unit compactos */
     td[data-label="Cant."] input,
     td[data-label="P. Unit"] input{
-      max-width: 130px;
-      padding: 6px 10px;
+      height:38px;
+      padding:7px 10px;
     }
 
-    /* ✅ Total más compacto */
-    table td.totalItem{
-      font-weight: bold;
-      justify-content: space-between;
-      padding-top: 6px;
-      padding-bottom: 4px;
+    /* Total: “Total” a la izq y valor a la der (como tu imagen) */
+    .m-row.total{
+      justify-content:space-between;
+      margin-top:2px;
+    }
+    .m-row.total .totalItem{
+      font-weight:800;
+      font-size:18px;
+      color:#111827;
     }
 
-    /* ✅ Acciones compactas */
-    table td.acciones{
-      justify-content: center;
-      padding-top: 8px;
+    /* Acciones: label centrado + botones debajo */
+    td[data-label="Acciones"] .m-row{
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      margin-top:4px;
     }
 
     .btn-icon{
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-    }
-
-    /* ✅ Ajuste de texto en header-middle para que no se vea gigante */
-    .header-middle{
-      font-size: 12px;
-      line-height: 1.25;
+      width:48px;
+      height:48px;
+      border-radius:14px;
     }
   }
 
   /* IMPRESIÓN */
-  @media print {
-    @page { size: A4; margin: 12mm; }
+  @media print{
+    @page{ size:A4; margin:12mm; }
 
-    body {
-      background: white;
-      color: #111;
-      font-size: 12pt;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+    body{
+      background:white;
+      color:#111;
+      font-size:12pt;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
     }
 
-    .container {
-      box-shadow: none;
-      padding: 0;
-      width: 100%;
-      max-width: none;
+    .container{
+      box-shadow:none;
+      padding:0;
+      width:100%;
+      max-width:none;
     }
 
     /* Ocultar botones/control */
-    .btn, .no-print { display: none !important; }
+    .btn, .no-print{ display:none !important; }
 
     /* Ocultar columna ACCIONES */
-    th.acciones-col, td.acciones { display: none !important; }
+    th.acciones-col, td.acciones{ display:none !important; }
 
-    .table-wrap{ border: none !important; overflow: visible !important; }
+    .table-wrap{ border:none !important; overflow:visible !important; }
+
+    /* IMPORTANTE: forzar tabla “normal” en impresión */
+    table{ border-collapse:collapse !important; border-spacing:0 !important; }
+    tr{ display:table-row !important; }
+    td{ display:table-cell !important; }
+
+    .m-label{ display:none !important; }
+    .m-row{ display:block !important; }
 
     /* Header branding ligero */
-    .header {
-      background: transparent !important;
-      color: #111 !important;
-      padding: 0 0 10px 0 !important;
-      border-radius: 0 !important;
-      border-bottom: 2px solid #0205F3;
+    .header{
+      background:transparent !important;
+      color:#111 !important;
+      padding:0 0 10px 0 !important;
+      border-radius:0 !important;
+      border-bottom:2px solid #0205F3;
     }
-    .header-logo {
-      background: transparent !important;
-      box-shadow: none !important;
-      padding: 0 !important;
+    .header-logo{
+      background:transparent !important;
+      box-shadow:none !important;
+      padding:0 !important;
     }
-    .header-logo img { width: 120px !important; }
-    .header-middle, .header-info { color: #111 !important; }
+    .header-logo img{ width:120px !important; }
+    .header-middle, .header-info{ color:#111 !important; }
 
-    .header-info input {
-      color: #111 !important;
-      border: none !important;
-      padding: 0 !important;
+    .header-info input{
+      color:#111 !important;
+      border:none !important;
+      padding:0 !important;
     }
 
-    .ruc-box {
-      background: transparent !important;
-      color: #111 !important;
-      border: 1px solid #111;
+    .ruc-box{
+      background:transparent !important;
+      color:#111 !important;
+      border:1px solid #111;
     }
 
     /* Tabla sobria */
-    th {
-      background: #f1f2f6 !important;
-      color: #111 !important;
-      border: 1px solid #999 !important;
+    th{
+      background:#f1f2f6 !important;
+      color:#111 !important;
+      border:1px solid #999 !important;
     }
-    td {
-      border: 1px solid #bbb !important;
-      padding: 8px 6px !important;
+    td{
+      border:1px solid #bbb !important;
+      padding:8px 6px !important;
     }
 
     /* Sin guiones bajos en impresión */
-    input, textarea {
-      border: none !important;
-      background: transparent !important;
-      color: #111 !important;
-      padding: 0 !important;
+    input, textarea{
+      border:none !important;
+      background:transparent !important;
+      color:#111 !important;
+      padding:0 !important;
     }
 
-    textarea {
-      border: 1px solid #bbb !important;
-      padding: 6px 8px !important;
+    textarea{
+      border:1px solid #bbb !important;
+      padding:6px 8px !important;
     }
 
-    tr { page-break-inside: avoid; }
+    tr{ page-break-inside:avoid; }
 
     /* Condiciones: imprimir resumen */
-    #condicionesPrint {
-      display: block !important;
-      margin-top: 10px;
-      border: 1px solid #bbb;
-      border-radius: 10px;
-      padding: 10px 12px;
+    #condicionesPrint{
+      display:block !important;
+      margin-top:10px;
+      border:1px solid #bbb;
+      border-radius:10px;
+      padding:10px 12px;
     }
-    #condicionesUI { display: none !important; }
+    #condicionesUI{ display:none !important; }
   }
 </style>
 </head>
@@ -549,8 +593,7 @@
           pattern="[0-9]*"
           maxlength="11"
           placeholder="0000000"
-          oninput="soloNumerosDoc(this)"
-        >
+          oninput="soloNumerosDoc(this)">
       </div>
     </div>
 
@@ -685,8 +728,8 @@ function pad2(n){ return String(n).padStart(2, "0"); }
 function fechaDDMMYYYY(d){
   return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}`;
 }
-function soloNumerosTelefono(input) { input.value = input.value.replace(/\D/g, ""); }
-function soloNumerosDoc(input) { input.value = input.value.replace(/\D/g, ""); }
+function soloNumerosTelefono(input){ input.value = input.value.replace(/\D/g, ""); }
+function soloNumerosDoc(input){ input.value = input.value.replace(/\D/g, ""); }
 function parseNumber(v){
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
@@ -713,7 +756,7 @@ function incrementarProforma(){
   const v = (input.value || "").trim();
 
   const m = v.match(/^(\d+)\-(\d{4})$/);
-  if (!m) {
+  if (!m){
     const y = new Date().getFullYear();
     input.value = `0001-${y}`;
     return;
@@ -731,26 +774,48 @@ function crearFila(data = {}){
   const tr = document.createElement("tr");
   tr.innerHTML = `
     <td data-label="Producto">
-      <input type="text" class="producto" value="${escapeHtml(producto)}" placeholder="Ej: Volantes A5">
+      <div class="m-row">
+        <span class="m-label">Producto</span>
+        <input type="text" class="producto" value="${escapeHtml(producto)}" placeholder="Ej: Volantes A5">
+      </div>
     </td>
 
     <td data-label="Descripción">
-      <input type="text" class="desc" value="${escapeHtml(desc)}" placeholder="Detalles: material, medida, acabado">
+      <div class="m-row">
+        <span class="m-label">Descripción</span>
+        <input type="text" class="desc" value="${escapeHtml(desc)}" placeholder="Detalles: material, medida, acabado">
+      </div>
     </td>
 
     <td data-label="Cant.">
-      <input type="number" class="cant center" min="0" step="1" value="${escapeHtml(cant)}" oninput="calcular()">
+      <div class="m-row">
+        <span class="m-label">Cant.</span>
+        <input type="number" class="cant center" min="0" step="1" value="${escapeHtml(cant)}" oninput="calcular()">
+      </div>
     </td>
 
     <td data-label="P. Unit">
-      <input type="number" class="precio num" min="0" step="0.01" value="${escapeHtml(precio)}" oninput="calcular()">
+      <div class="m-row">
+        <span class="m-label">P. Unit</span>
+        <input type="number" class="precio num" min="0" step="0.01" value="${escapeHtml(precio)}" placeholder="S/" oninput="calcular()">
+      </div>
     </td>
 
-    <td data-label="Total" class="totalItem num">0.00</td>
+    <td data-label="Total" class="num">
+      <div class="m-row total">
+        <span class="m-label">Total</span>
+        <span class="totalItem num">0.00</span>
+      </div>
+    </td>
 
     <td data-label="Acciones" class="acciones">
-      <button type="button" class="btn-icon" title="Duplicar fila" onclick="duplicarFila(this)">⧉</button>
-      <button type="button" class="btn-icon" title="Eliminar fila" onclick="eliminarFila(this)">✕</button>
+      <div class="m-row">
+        <span class="m-label">Acciones</span>
+        <div class="actions-buttons">
+          <button type="button" class="btn-icon" title="Duplicar fila" onclick="duplicarFila(this)">⧉</button>
+          <button type="button" class="btn-icon" title="Eliminar fila" onclick="eliminarFila(this)">✕</button>
+        </div>
+      </div>
     </td>
   `;
   return tr;
@@ -795,7 +860,8 @@ function calcular(){
     const precio = parseNumber(tr.querySelector(".precio")?.value);
     const lineTotal = Math.max(0, cant * precio);
 
-    tr.querySelector(".totalItem").textContent = money(lineTotal);
+    const totalEl = tr.querySelector(".totalItem");
+    if (totalEl) totalEl.textContent = money(lineTotal);
     subtotal += lineTotal;
   });
 
@@ -900,10 +966,10 @@ async function copiarResumen(){
 
   const text = lines.join("\n");
 
-  try {
+  try{
     await navigator.clipboard.writeText(text);
     alert("Resumen copiado ✅ Pégalo en WhatsApp.");
-  } catch {
+  }catch{
     const ta = document.createElement("textarea");
     ta.value = text;
     document.body.appendChild(ta);
@@ -931,11 +997,11 @@ function getRowsData(){
 /* Escapes */
 function escapeHtml(str){
   return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 </script>
 
