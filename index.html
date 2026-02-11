@@ -282,7 +282,7 @@
     margin-top:10px;
   }
 
-  /* ====== Helpers para “modo móvil” dentro de la tabla (NO afecta web) ====== */
+  /* Helpers móvil dentro de tabla (NO afecta web) */
   .m-label{ display:none; }
   .m-row{ display:block; } /* web: normal */
 
@@ -303,18 +303,15 @@
     .totals-wrap{ grid-template-columns:1fr; }
     .checks{ grid-template-columns:1fr; }
 
-    /* botones full width */
     .btn{ width:100%; justify-content:center; margin-right:0; }
 
-    /* pills más compactos */
     .inline-row{ gap:8px; }
     .pill{ padding:6px 8px; border-radius:10px; }
     .pill input{ font-size:13px; }
 
-    /* Ajuste header-middle */
     .header-middle{ font-size:12px; line-height:1.25; }
 
-    /* === Detalle de productos en “tarjetas” SOLO móvil === */
+    /* Tarjetas SOLO móvil */
     .table-wrap{ border:none; overflow:visible; }
 
     table{
@@ -323,7 +320,7 @@
       margin-top:0;
     }
 
-    table tr:first-child{ display:none; } /* oculta cabecera */
+    table tr:first-child{ display:none; }
 
     table tr{
       display:grid;
@@ -341,7 +338,6 @@
       padding:0;
     }
 
-    /* 1) Producto y 2) Descripción a ancho completo */
     td[data-label="Producto"],
     td[data-label="Descripción"],
     td[data-label="Total"],
@@ -349,7 +345,6 @@
       grid-column:1 / -1;
     }
 
-    /* Etiquetas visibles en móvil */
     .m-label{
       display:inline-block;
       font-weight:700;
@@ -358,26 +353,22 @@
       white-space:nowrap;
     }
 
-    /* Fila tipo “label a la izquierda + input a la derecha” */
     .m-row{
       display:flex;
       align-items:center;
       gap:10px;
     }
 
-    /* Para Producto/Descripción: label un poco más ancho */
     td[data-label="Producto"] .m-label,
     td[data-label="Descripción"] .m-label{
       min-width:92px;
     }
 
-    /* Para Cant y P.Unit: label corto */
     td[data-label="Cant."] .m-label,
     td[data-label="P. Unit"] .m-label{
       min-width:56px;
     }
 
-    /* Inputs en móvil (más delgados) */
     table td input{
       border:1px solid #e5e7eb;
       border-radius:14px;
@@ -388,14 +379,12 @@
       box-sizing:border-box;
     }
 
-    /* Cant y P.Unit compactos */
     td[data-label="Cant."] input,
     td[data-label="P. Unit"] input{
       height:38px;
       padding:7px 10px;
     }
 
-    /* Total: “Total” a la izq y valor a la der (como tu imagen) */
     .m-row.total{
       justify-content:space-between;
       margin-top:2px;
@@ -406,7 +395,6 @@
       color:#111827;
     }
 
-    /* Acciones: label centrado + botones debajo */
     td[data-label="Acciones"] .m-row{
       flex-direction:column;
       align-items:center;
@@ -440,15 +428,13 @@
       max-width:none;
     }
 
-    /* Ocultar botones/control */
     .btn, .no-print{ display:none !important; }
 
-    /* Ocultar columna ACCIONES */
     th.acciones-col, td.acciones{ display:none !important; }
 
     .table-wrap{ border:none !important; overflow:visible !important; }
 
-    /* IMPORTANTE: forzar tabla “normal” en impresión */
+    /* Forzar tabla normal en impresión */
     table{ border-collapse:collapse !important; border-spacing:0 !important; }
     tr{ display:table-row !important; }
     td{ display:table-cell !important; }
@@ -456,7 +442,6 @@
     .m-label{ display:none !important; }
     .m-row{ display:block !important; }
 
-    /* Header branding ligero */
     .header{
       background:transparent !important;
       color:#111 !important;
@@ -484,7 +469,6 @@
       border:1px solid #111;
     }
 
-    /* Tabla sobria */
     th{
       background:#f1f2f6 !important;
       color:#111 !important;
@@ -495,7 +479,6 @@
       padding:8px 6px !important;
     }
 
-    /* Sin guiones bajos en impresión */
     input, textarea{
       border:none !important;
       background:transparent !important;
@@ -510,7 +493,7 @@
 
     tr{ page-break-inside:avoid; }
 
-    /* Condiciones: imprimir resumen */
+    /* Mostrar resumen de condiciones en impresión */
     #condicionesPrint{
       display:block !important;
       margin-top:10px;
@@ -600,13 +583,13 @@
     <div class="inline-row" style="margin-top:10px;">
       <div class="pill">
         <small><strong>Fecha:</strong></small>
-        <input id="fecha" type="text" style="width:120px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
+        <input id="fecha" type="text" style="width:180px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
       </div>
       <div class="pill">
         <small><strong>Válido hasta:</strong></small>
-        <input id="validoHasta" type="text" style="width:120px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
+        <input id="validoHasta" type="text" style="width:180px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
       </div>
-      <div class="pill">
+      <div class="pill" style="width:250px">
         <small><strong>Fecha de entrega:</strong></small>
         <input id="fechaEntrega" type="date" style="border:none;">
       </div>
@@ -617,7 +600,7 @@
   <div class="section">
     <div class="section-title">Detalle de productos / servicios</div>
 
-    <div class="table-wrap">
+    <div>
       <table id="tabla">
         <tr>
           <th style="width:22%;">PRODUCTO</th>
@@ -631,7 +614,8 @@
     </div>
 
     <button class="btn no-print" type="button" onclick="agregarFila()">+ Agregar ítem</button>
-    <button class="btn secondary no-print" type="button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    <!-- ✅ IMPORTANTE: ahora imprimimos con función para asegurar que se refleje -->
+    <button class="btn secondary no-print" type="button" onclick="imprimir()">🖨️ Imprimir / Guardar PDF</button>
     <button class="btn light no-print" type="button" onclick="copiarResumen()">📋 Copiar resumen (WhatsApp)</button>
   </div>
 
@@ -657,19 +641,11 @@
 
       <label class="check">
         <input id="cUrgente" type="checkbox">
-        <span>Urgente (recargo)</span>
+        <span>Urgente</span>
       </label>
     </div>
 
     <div class="grid-2" style="margin-top:12px;">
-      <div class="field">
-        <label>Tiempo de entrega (días)</label>
-        <input id="cDiasEntrega" type="number" min="0" placeholder="Ej: 2">
-      </div>
-      <div class="field">
-        <label>Recargo urgente (%)</label>
-        <input id="cRecargo" type="number" min="0" step="0.01" placeholder="Ej: 10">
-      </div>
       <div class="field" style="grid-column:1 / -1;">
         <label>Observaciones</label>
         <textarea id="observaciones" placeholder="Ej: Papel couché 150g, plastificado mate, medidas..."></textarea>
@@ -679,7 +655,7 @@
 
   <!-- RESUMEN CONDICIONES PARA IMPRESIÓN -->
   <div id="condicionesPrint" style="display:none;">
-    <div style="font-weight:bold; color:#111; margin-bottom:6px;">Condiciones</div>
+    <div style="font-weight:bold; color:#111; margin-bottom:6px;">Condiciones / Observaciones</div>
     <div id="condicionesPrintBody" style="font-size:11pt; line-height:1.4;"></div>
   </div>
 
@@ -748,6 +724,8 @@ function money(n){
   document.getElementById("validoHasta").value = fechaDDMMYYYY(valido);
 
   agregarFila();
+  wireCondiciones();
+  syncCondicionesPrint(); // ✅ deja listo el bloque de impresión
 })();
 
 /* Proforma +1 */
@@ -879,35 +857,59 @@ function recalcularSaldoDesdeAdelanto(){
   calcular();
 }
 
-/* Condiciones impresión */
-function getCondicionesData(){
-  return {
-    incluyeDiseno: document.getElementById("cIncluyeDiseno").checked,
-    incluyeInstalacion: document.getElementById("cIncluyeInstalacion").checked,
-    entregaDomicilio: document.getElementById("cEntregaDomicilio").checked,
-    urgente: document.getElementById("cUrgente").checked,
-    dias: document.getElementById("cDiasEntrega").value,
-    recargo: document.getElementById("cRecargo").value,
-    obs: document.getElementById("observaciones").value
-  };
+/* ===== Condiciones + Observaciones (impresión garantizada) ===== */
+function getCondicionesSeleccionadas(){
+  const cond = [];
+  if (document.getElementById("cIncluyeDiseno").checked) cond.push("Incluye diseño");
+  if (document.getElementById("cIncluyeInstalacion").checked) cond.push("Incluye instalación");
+  if (document.getElementById("cEntregaDomicilio").checked) cond.push("Entrega a domicilio");
+  if (document.getElementById("cUrgente").checked) cond.push("Urgente");
+  return cond;
 }
 
-function renderCondicionesPrint(){
-  const c = getCondicionesData();
+function syncCondicionesPrint(){
+  const cond = getCondicionesSeleccionadas();
+  const obsRaw = (document.getElementById("observaciones").value || "").trim();
+
   const lines = [];
-  lines.push(`• Incluye diseño: <strong>${c.incluyeDiseno ? "Sí" : "No"}</strong>`);
-  lines.push(`• Incluye instalación: <strong>${c.incluyeInstalacion ? "Sí" : "No"}</strong>`);
-  lines.push(`• Entrega a domicilio: <strong>${c.entregaDomicilio ? "Sí" : "No"}</strong>`);
-  lines.push(`• Urgente: <strong>${c.urgente ? "Sí" : "No"}</strong>`);
-  if (c.dias !== "") lines.push(`• Tiempo de entrega: <strong>${escapeHtml(c.dias)} día(s)</strong>`);
-  if (c.recargo !== "") lines.push(`• Recargo urgente: <strong>${escapeHtml(c.recargo)}%</strong>`);
-  if ((c.obs || "").trim()) lines.push(`• Observaciones: <strong>${escapeHtml(c.obs.trim())}</strong>`);
+
+  // Condiciones
+  if (cond.length){
+    lines.push(`• Condiciones: <strong>${escapeHtml(cond.join(" | "))}</strong>`);
+  } else {
+    lines.push(`• Condiciones: <strong>(sin marcar)</strong>`);
+  }
+
+  // Observaciones (con saltos de línea)
+  if (obsRaw){
+    const obsHtml = escapeHtml(obsRaw).replace(/\n/g, "<br>");
+    lines.push(`• Observaciones: <strong>${obsHtml}</strong>`);
+  } else {
+    lines.push(`• Observaciones: <strong>(vacío)</strong>`);
+  }
+
   document.getElementById("condicionesPrintBody").innerHTML = lines.join("<br>");
 }
 
-window.addEventListener("beforeprint", () => {
-  renderCondicionesPrint();
-});
+function wireCondiciones(){
+  const ids = ["cIncluyeDiseno","cIncluyeInstalacion","cEntregaDomicilio","cUrgente"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", syncCondicionesPrint);
+  });
+
+  const obs = document.getElementById("observaciones");
+  if (obs) obs.addEventListener("input", syncCondicionesPrint);
+
+  // respaldo adicional: antes de imprimir, vuelve a sincronizar
+  window.addEventListener("beforeprint", syncCondicionesPrint);
+}
+
+function imprimir(){
+  // ✅ Esto hace que SIEMPRE se refleje aunque el navegador no dispare beforeprint
+  syncCondicionesPrint();
+  window.print();
+}
 
 /* Copiar resumen */
 async function copiarResumen(){
@@ -950,18 +952,13 @@ async function copiarResumen(){
   lines.push(`✅ Adelanto: S/${adelanto}`);
   lines.push(`📌 Saldo: S/${saldo}`);
 
-  const c = getCondicionesData();
-  const cond = [];
-  if (c.incluyeDiseno) cond.push("Incluye diseño");
-  if (c.incluyeInstalacion) cond.push("Incluye instalación");
-  if (c.entregaDomicilio) cond.push("Entrega a domicilio");
-  if (c.urgente) cond.push(`Urgente${c.recargo ? ` (+${c.recargo}%)` : ""}`);
-  if (c.dias !== "") cond.push(`Entrega en ${c.dias} día(s)`);
-  if (cond.length) {
+  const cond = getCondicionesSeleccionadas();
+  if (cond.length){
     lines.push("");
     lines.push("📌 Condiciones: " + cond.join(" | "));
   }
-  const obs = (c.obs || "").trim();
+
+  const obs = (document.getElementById("observaciones").value || "").trim();
   if (obs) lines.push("📝 Obs: " + obs);
 
   const text = lines.join("\n");
