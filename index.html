@@ -525,6 +525,78 @@
       margin-top: 10px;
     }
 
+    .product-search {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      background: #ffffff;
+    }
+
+    .product-search-title {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 7px;
+    }
+
+    .product-search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+    }
+
+    .product-search-row input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 10px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .product-results {
+      margin-top: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .product-result {
+      width: 100%;
+      border: 1px solid var(--line-soft);
+      background: var(--soft-2);
+      border-radius: 6px;
+      padding: 8px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 11px;
+      color: var(--ink);
+    }
+
+    .product-result:hover {
+      border-color: var(--accent);
+      background: #ffffff;
+    }
+
+    .product-result strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .product-result small {
+      display: block;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .product-status {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 6px 2px;
+    }
+
     .mobile-label {
       display: none;
     }
@@ -800,6 +872,10 @@
       .toolbar .btn,
       .table-actions .btn {
         width: 100%;
+      }
+
+      .product-search-row {
+        grid-template-columns: 1fr;
       }
 
       .document-header {
@@ -1270,6 +1346,24 @@
         </div>
       </section>
 
+      <section class="product-search no-print">
+        <div class="product-search-title">Buscar producto registrado</div>
+
+        <div class="product-search-row">
+          <input
+            id="productQuery"
+            type="text"
+            placeholder="Buscar por código, nombre o descripción. Ej: volantes, tarjetas, stickers..."
+            oninput="buscarProductosDebounced()"
+            onkeydown="if(event.key === 'Enter'){ event.preventDefault(); buscarProductos(); }"
+          >
+
+          <button class="btn secondary" type="button" onclick="buscarProductos()">Buscar</button>
+        </div>
+
+        <div id="productResults" class="product-results"></div>
+      </section>
+
       <section class="table-wrap">
         <table class="quote-table" id="quoteTable">
           <colgroup>
@@ -1463,6 +1557,11 @@
   <script>
     const CONFIG_KEY = "proforma_agora_comunicadores_config_v1";
 
+    const API_URL = "https://script.google.com/macros/s/AKfycbz-N9-4EUvAShT7ke22TjCMsEyDJPX0r_e8_j86DXYJT6UJ4olRQf7U0oDmhrfU6ZOUqw/exec";
+    const API_TOKEN = "AGORA_2026_CAMBIAR"; // Debe coincidir con API_TOKEN de Apps Script.
+
+    let productSearchTimer = null;
+
     const DEFAULT_CONFIG = {
       logo: "https://i.postimg.cc/TYQjL4w8/logo-agora2.png",
       ruc: "20615031829",
@@ -1512,6 +1611,162 @@
       return row.querySelector(".description")?.innerText.trim() || "";
     }
 
+    function setDescriptionValue(row, value) {
+      const descriptionEl = row.querySelector(".description");
+      if (descriptionEl) {
+        descriptionEl.textContent = value || "";
+      }
+    }
+
+    function apiGet(action, params = {}) {
+      return new Promise((resolve, reject) => {
+        if (!API_URL || API_URL.includes("PEGA_AQUI")) {
+          reject(new Error("Configura API_URL con la URL /exec de Apps Script."));
+          return;
+        }
+
+        const callbackName = "__agoraCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+        const url = new URL(API_URL);
+        url.searchParams.set("action", action);
+        url.searchParams.set("token", API_TOKEN);
+        url.searchParams.set("callback", callbackName);
+
+        Object.entries(params).forEach(([key, value]) => {
+          url.searchParams.set(key, value ?? "");
+        });
+
+        const script = document.createElement("script");
+
+        const cleanup = () => {
+          delete window[callbackName];
+          script.remove();
+          clearTimeout(timer);
+        };
+
+        const timer = setTimeout(() => {
+          cleanup();
+          reject(new Error("La búsqueda demoró demasiado. Revisa la URL de Apps Script, el token o la implementación."));
+        }, 15000);
+
+        window[callbackName] = function (data) {
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = function () {
+          cleanup();
+          reject(new Error("No se pudo conectar con Apps Script."));
+        };
+
+        script.src = url.toString();
+        document.body.appendChild(script);
+      });
+    }
+
+    function buscarProductosDebounced() {
+      clearTimeout(productSearchTimer);
+      productSearchTimer = setTimeout(buscarProductos, 350);
+    }
+
+    async function buscarProductos() {
+      const input = document.getElementById("productQuery");
+      const resultsEl = document.getElementById("productResults");
+
+      if (!input || !resultsEl) return;
+
+      const q = input.value.trim();
+
+      if (q.length < 2) {
+        resultsEl.innerHTML = `<div class="product-status">Escribe al menos 2 caracteres para buscar.</div>`;
+        return;
+      }
+
+      resultsEl.innerHTML = `<div class="product-status">Buscando productos...</div>`;
+
+      try {
+        const response = await apiGet("buscarProductos", { q });
+
+        if (!response.ok) {
+          throw new Error(response.message || "No se pudo buscar productos.");
+        }
+
+        renderProductResults(response.productos || []);
+
+      } catch (error) {
+        resultsEl.innerHTML = `<div class="product-status">Error: ${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    function renderProductResults(productos) {
+      const resultsEl = document.getElementById("productResults");
+      resultsEl.innerHTML = "";
+
+      if (!productos.length) {
+        resultsEl.innerHTML = `<div class="product-status">No se encontraron productos activos.</div>`;
+        return;
+      }
+
+      productos.forEach(producto => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "product-result";
+
+        button.innerHTML = `
+          <strong>${escapeHtml(producto.codigo || "SIN-COD")} — ${escapeHtml(producto.nombre || "Producto")}</strong>
+          <small>${escapeHtml(producto.descripcion || "")}</small>
+          <small>Unidad: ${escapeHtml(producto.unidad || "NIU")} | Precio: S/ ${money(producto.precio || 0)}</small>
+        `;
+
+        button.addEventListener("click", () => {
+          agregarProductoDesdeBusqueda(producto);
+        });
+
+        resultsEl.appendChild(button);
+      });
+    }
+
+    function agregarProductoDesdeBusqueda(producto) {
+      const descripcionCompleta = [
+        producto.nombre || "",
+        producto.descripcion || ""
+      ].filter(Boolean).join(" — ");
+
+      const data = {
+        product_id: producto.producto_id || "",
+        qty: 1,
+        unit: producto.unidad || "NIU",
+        code: producto.codigo || "",
+        description: descripcionCompleta,
+        price: producto.precio || 0
+      };
+
+      const filaVacia = [...document.querySelectorAll("#itemsBody tr")].find(row => {
+        const code = row.querySelector(".code")?.value.trim();
+        const desc = getDescriptionValue(row);
+        const price = parseNumber(row.querySelector(".price")?.value);
+        return !code && !desc && price === 0;
+      });
+
+      if (filaVacia) {
+        filaVacia.querySelector(".product-id").value = data.product_id;
+        filaVacia.querySelector(".qty").value = data.qty;
+        filaVacia.querySelector(".unit").value = data.unit;
+        filaVacia.querySelector(".code").value = data.code;
+        filaVacia.querySelector(".price").value = data.price;
+        setDescriptionValue(filaVacia, data.description);
+      } else {
+        agregarFila(data);
+      }
+
+      calcular();
+
+      document.getElementById("productQuery").value = "";
+      document.getElementById("productResults").innerHTML = `
+        <div class="product-status">Producto agregado: ${escapeHtml(producto.nombre || producto.codigo || "")}</div>
+      `;
+    }
+
     function textToHtmlLines(text) {
       return escapeHtml(text || "").replace(/\n/g, "<br>");
     }
@@ -1526,7 +1781,7 @@
       document.getElementById("quoteNumber").value = `PRO-0001-${today.getFullYear()}`;
 
       cargarConfig();
-      agregarFila({ qty: 1, unit: "NIU", code: "", description: "", price: 0 });
+      agregarFila();
       calcular();
     }
 
@@ -1623,6 +1878,7 @@
     });
 
     function crearFila(data = {}) {
+      const productId = data.product_id ?? "";
       const qty = data.qty ?? 1;
       const unit = data.unit ?? "NIU";
       const code = data.code ?? "";
@@ -1634,6 +1890,7 @@
       tr.innerHTML = `
         <td>
           <span class="mobile-label">Cantidad</span>
+          <input class="product-id" type="hidden" value="${escapeHtml(productId)}">
           <input class="qty center" type="number" min="0" step="1" value="${escapeHtml(qty)}" oninput="calcular()">
         </td>
 
@@ -1698,6 +1955,7 @@
       if (!row) return;
 
       const data = {
+        product_id: row.querySelector(".product-id")?.value || "",
         qty: row.querySelector(".qty").value,
         unit: row.querySelector(".unit").value,
         code: row.querySelector(".code").value,
@@ -1711,6 +1969,7 @@
 
     function getRowsData() {
       return [...document.querySelectorAll("#itemsBody tr")].map(row => ({
+        product_id: row.querySelector(".product-id")?.value || "",
         qty: parseNumber(row.querySelector(".qty")?.value),
         unit: row.querySelector(".unit")?.value || "",
         code: row.querySelector(".code")?.value || "",
