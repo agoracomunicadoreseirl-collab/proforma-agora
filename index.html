@@ -1,1011 +1,1916 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Proforma Ágora Comunicadores</title>
-<link rel="icon" href="./logo-ico-agora2.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Proforma — Ágora Comunicadores</title>
+  <link rel="icon" href="./logo-ico-agora2.ico" type="image/x-icon">
   <link rel="shortcut icon" href="./logo-ico-agora2.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="./logo-ico-agora2.png">
   <meta name="apple-mobile-web-app-title" content="Agora">
   <meta name="apple-mobile-web-app-capable" content="yes">
-<style>
-  body{
-    margin:0;
-    background:#FFFFFF;
-    font-family:Arial, sans-serif;
-    color:#222;
-  }
 
-  .container{
-    max-width:860px;
-    margin:auto;
-    padding:15px;
-    background:white;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-    position:relative;
-  }
-
-  /* CABECERA */
-  .header{
-    background:#0205F3;
-    color:white;
-    padding:25px 20px;
-    border-radius:8px;
-  }
-
-  .header-flex{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:25px;
-  }
-
-  .header-logo{
-    background:white;
-    padding:18px;
-    border-radius:12px;
-    display:flex;
-    justify-content:center;
-    box-shadow:0 0 6px rgba(255,255,255,0.25);
-    flex:1;
-  }
-  .header-logo img{ width:140px; }
-
-  .header-middle{
-    flex:2;
-    text-align:center;
-    font-size:13px;
-    line-height:1.4;
-  }
-
-  .header-info{
-    flex:1;
-    font-size:13px;
-    line-height:1.5;
-    text-align:right;
-    min-width:220px;
-  }
-
-  .ruc-box{
-    background:white;
-    color:#0205F3;
-    font-weight:bold;
-    border-radius:6px;
-    padding:6px 14px;
-    width:fit-content;
-    margin-top:10px;
-    margin-left:auto;
-    font-size:16px;
-  }
-
-  /* SECCIONES */
-  .section{ margin-top:22px; }
-
-  .section-title{
-    font-weight:bold;
-    color:#0205F3;
-    margin-bottom:8px;
-    font-size:15px;
-  }
-
-  .grid-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
-
-  .field label{
-    display:block;
-    font-size:12px;
-    color:#444;
-    margin-bottom:4px;
-  }
-
-  .field input, .field textarea{
-    width:100%;
-    border:none;
-    border-bottom:1px solid #666;
-    padding:8px 4px;
-    font-size:14px;
-    outline:none;
-    background:transparent;
-  }
-
-  .field textarea{
-    border:1px solid #ddd;
-    border-radius:8px;
-    padding:10px 10px;
-    min-height:64px;
-    resize:vertical;
-  }
-
-  .inline-row{
-    display:flex;
-    gap:10px;
-    align-items:end;
-    flex-wrap:wrap;
-  }
-
-  .pill{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:#f3f4ff;
-    border:1px solid #dfe1ff;
-    padding:8px 10px;
-    border-radius:10px;
-  }
-
-  /* TABLA */
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:12px;
-  }
-
-  th{
-    background:#0205F3;
-    color:white;
-    padding:10px 6px;
-    font-size:13px;
-    text-align:left;
-  }
-
-  td{
-    border:1px solid #0205F3;
-    padding:6px;
-    vertical-align:middle;
-  }
-
-  td input{
-    width:100%;
-    border:none;
-    font-size:14px;
-    outline:none;
-    background:transparent;
-  }
-
-  .num{ text-align:right; }
-  .center{ text-align:center; }
-
-  /* BOTONES */
-  .btn{
-    background:#0205F3;
-    color:white;
-    padding:10px 14px;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:14px;
-    margin:10px 8px 0 0;
-    border:none;
-  }
-  .btn.secondary{ background:#111827; }
-  .btn.light{
-    background:#f3f4ff;
-    color:#0205F3;
-    border:1px solid #dfe1ff;
-  }
-
-  /* ACCIONES */
-  .acciones{ text-align:center; white-space:nowrap; }
-
-  .btn-icon{
-    background:transparent;
-    border:1px solid #0205F3;
-    color:#0205F3;
-    width:34px;
-    height:34px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 2px;
-  }
-  .btn-icon:hover{ background:#0205F3; color:white; }
-
-  /* TOTALES */
-  .totals-wrap{
-    display:grid;
-    grid-template-columns:1fr 340px;
-    gap:14px;
-    margin-top:18px;
-    align-items:start;
-  }
-
-  .note-box{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:12px 12px;
-    background:#fafafa;
-    font-size:13px;
-    line-height:1.45;
-  }
-
-  .total-box{
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:14px 14px;
-  }
-
-  .total-row{
-    display:flex;
-    justify-content:space-between;
-    font-size:15px;
-    margin-bottom:10px;
-  }
-  .total-row strong{ font-size:16px; }
-
-  .total-row input{
-    width:140px;
-    border:none;
-    border-bottom:1px solid #666;
-    text-align:right;
-    font-size:15px;
-    outline:none;
-    background:transparent;
-  }
-
-  /* CONDICIONES */
-  .checks{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-  .check{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:10px 10px;
-    background:#fff;
-  }
-  .check input{ width:18px; height:18px; }
-
-  /* FOOTER */
-  .footer{
-    margin-top:24px;
-    font-size:13px;
-  }
-  .footer img{ max-width:130px; }
-  .qr{ float:right; width:90px; }
-
-  /* WRAPPER TABLA */
-  .table-wrap{
-    width:100%;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    margin-top:10px;
-  }
-
-  /* Helpers móvil dentro de tabla (NO afecta web) */
-  .m-label{ display:none; }
-  .m-row{ display:block; } /* web: normal */
-
-  .actions-buttons{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 700px){
-    .container{ padding:10px; }
-
-    .header-flex{ flex-direction:column; text-align:center; }
-    .header-info{ text-align:center; }
-    .ruc-box{ margin:10px auto; }
-    .grid-2{ grid-template-columns:1fr; }
-    .totals-wrap{ grid-template-columns:1fr; }
-    .checks{ grid-template-columns:1fr; }
-
-    .btn{ width:100%; justify-content:center; margin-right:0; }
-
-    .inline-row{ gap:8px; }
-    .pill{ padding:6px 8px; border-radius:10px; }
-    .pill input{ font-size:13px; }
-
-    .header-middle{ font-size:12px; line-height:1.25; }
-
-    /* Tarjetas SOLO móvil */
-    .table-wrap{ border:none; overflow:visible; }
-
-    table{
-      border-collapse:separate;
-      border-spacing:0 10px;
-      margin-top:0;
+  <style>
+    :root {
+      --ink: #111111;
+      --muted: #666666;
+      --soft: #f6f6f6;
+      --soft-2: #fafafa;
+      --line: #b8b8b8;
+      --line-soft: #e5e5e5;
+      --paper: #ffffff;
+      --accent: #0205F3;
+      --accent-soft: #f3f4ff;
+      --danger: #b91c1c;
+      --ok: #15803d;
     }
 
-    table tr:first-child{ display:none; }
-
-    table tr{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      border:1px solid #e5e7eb;
-      border-radius:16px;
-      padding:12px;
-      background:#fff;
+    * {
+      box-sizing: border-box;
     }
 
-    table td{
-      display:block;
-      border:none;
-      padding:0;
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
-    td[data-label="Producto"],
-    td[data-label="Descripción"],
-    td[data-label="Total"],
-    td[data-label="Acciones"]{
-      grid-column:1 / -1;
+    body {
+      margin: 0;
+      background: #eeeeee;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
     }
 
-    .m-label{
-      display:inline-block;
-      font-weight:700;
-      font-size:13px;
-      color:#111827;
-      white-space:nowrap;
+    input,
+    textarea,
+    select,
+    button {
+      font-family: inherit;
+      max-width: 100%;
+      min-width: 0;
     }
 
-    .m-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
+    img {
+      max-width: 100%;
+      height: auto;
     }
 
-    td[data-label="Producto"] .m-label,
-    td[data-label="Descripción"] .m-label{
-      min-width:92px;
+    .page {
+      width: 100%;
+      max-width: 920px;
+      margin: 18px auto;
+      padding: 14px;
     }
 
-    td[data-label="Cant."] .m-label,
-    td[data-label="P. Unit"] .m-label{
-      min-width:56px;
+    .sheet {
+      width: 100%;
+      max-width: 100%;
+      background: var(--paper);
+      border: 1px solid #dddddd;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 22px;
+      overflow: hidden;
     }
 
-    table td input{
-      border:1px solid #e5e7eb;
-      border-radius:14px;
-      padding:8px 12px;
-      background:#fff;
-      font-size:14px;
-      height:40px;
-      box-sizing:border-box;
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
 
-    td[data-label="Cant."] input,
-    td[data-label="P. Unit"] input{
-      height:38px;
-      padding:7px 10px;
+    .btn {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .m-row.total{
-      justify-content:space-between;
-      margin-top:2px;
-    }
-    .m-row.total .totalItem{
-      font-weight:800;
-      font-size:18px;
-      color:#111827;
+    .btn:hover {
+      opacity: 0.92;
     }
 
-    td[data-label="Acciones"] .m-row{
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      margin-top:4px;
+    .btn.secondary {
+      background: #ffffff;
+      color: var(--accent);
     }
 
-    .btn-icon{
-      width:48px;
-      height:48px;
-      border-radius:14px;
-    }
-  }
-
-  /* IMPRESIÓN */
-  @media print{
-    @page{ size:A4; margin:12mm; }
-
-    body{
-      background:white;
-      color:#111;
-      font-size:12pt;
-      -webkit-print-color-adjust:exact;
-      print-color-adjust:exact;
+    .btn.success {
+      background: var(--ok);
+      border-color: var(--ok);
     }
 
-    .container{
-      box-shadow:none;
-      padding:0;
-      width:100%;
-      max-width:none;
+    .btn.danger {
+      background: #ffffff;
+      color: var(--danger);
+      border-color: var(--danger);
     }
 
-    .btn, .no-print{ display:none !important; }
-
-    th.acciones-col, td.acciones{ display:none !important; }
-
-    .table-wrap{ border:none !important; overflow:visible !important; }
-
-    /* Forzar tabla normal en impresión */
-    table{ border-collapse:collapse !important; border-spacing:0 !important; }
-    tr{ display:table-row !important; }
-    td{ display:table-cell !important; }
-
-    .m-label{ display:none !important; }
-    .m-row{ display:block !important; }
-
-    .header{
-      background:transparent !important;
-      color:#111 !important;
-      padding:0 0 10px 0 !important;
-      border-radius:0 !important;
-      border-bottom:2px solid #0205F3;
-    }
-    .header-logo{
-      background:transparent !important;
-      box-shadow:none !important;
-      padding:0 !important;
-    }
-    .header-logo img{ width:120px !important; }
-    .header-middle, .header-info{ color:#111 !important; }
-
-    .header-info input{
-      color:#111 !important;
-      border:none !important;
-      padding:0 !important;
+    .btn-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 700;
+      line-height: 1;
     }
 
-    .ruc-box{
-      background:transparent !important;
-      color:#111 !important;
-      border:1px solid #111;
+    .btn-icon:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
     }
 
-    th{
-      background:#f1f2f6 !important;
-      color:#111 !important;
-      border:1px solid #999 !important;
-    }
-    td{
-      border:1px solid #bbb !important;
-      padding:8px 6px !important;
-    }
-
-    input, textarea{
-      border:none !important;
-      background:transparent !important;
-      color:#111 !important;
-      padding:0 !important;
+    .document-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 14px;
+      max-width: 100%;
     }
 
-    textarea{
-      border:1px solid #bbb !important;
-      padding:6px 8px !important;
+    .issuer {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      min-width: 0;
     }
 
-    tr{ page-break-inside:avoid; }
-
-    /* Mostrar resumen de condiciones en impresión */
-    #condicionesPrint{
-      display:block !important;
-      margin-top:10px;
-      border:1px solid #bbb;
-      border-radius:10px;
-      padding:10px 12px;
+    .logo-box {
+      min-height: 92px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
-    #condicionesUI{ display:none !important; }
-  }
-</style>
+
+    .logo-box img {
+      width: 155px;
+      max-height: 92px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .issuer-info {
+      min-width: 0;
+      padding-top: 4px;
+    }
+
+    .issuer-line {
+      margin: 2px 0;
+      color: var(--ink);
+      line-height: 1.35;
+      font-size: 11px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .issuer-line.empty {
+      display: none;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .contact-icon {
+      width: 14px;
+      flex: 0 0 14px;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .services {
+      margin-top: 6px;
+      line-height: 1.35;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #777777;
+      text-transform: uppercase;
+      letter-spacing: 0.1px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .doc-box {
+      border: 1px solid var(--line);
+      background: var(--accent-soft);
+      border-radius: 6px;
+      text-align: center;
+      padding: 11px 10px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .doc-box .ruc {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      margin-bottom: 4px;
+      overflow-wrap: anywhere;
+    }
+
+    .doc-box .title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--accent);
+    }
+
+    .doc-number {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 0;
+    }
+
+    .doc-number input {
+      width: 125px;
+      text-align: center;
+      border: none;
+      border-bottom: 1px solid var(--ink);
+      background: transparent;
+      font-weight: 800;
+      font-size: 12px;
+      outline: none;
+      padding: 2px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 8px;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      background: #ffffff;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .box-title {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 92px 8px minmax(0, 1fr);
+      align-items: start;
+      min-height: 18px;
+      gap: 3px;
+      margin-bottom: 2px;
+    }
+
+    .data-row .label {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .data-row .colon {
+      font-weight: 800;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .data-row input,
+    .data-row textarea,
+    .data-row select {
+      width: 100%;
+      border: none;
+      background: transparent;
+      outline: none;
+      padding: 0;
+      font-size: 11px;
+      color: var(--ink);
+      min-height: 16px;
+    }
+
+    .data-row textarea {
+      resize: vertical;
+      min-height: 34px;
+      line-height: 1.25;
+    }
+
+    .data-row input:focus,
+    .data-row textarea:focus,
+    .data-row select:focus {
+      background: #fffdf5;
+      box-shadow: inset 0 -1px 0 var(--accent);
+    }
+
+    .meta-row {
+      grid-template-columns: 105px 8px minmax(0, 1fr);
+    }
+
+    .igv-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .igv-inline input {
+      width: auto;
+      min-height: auto;
+    }
+
+    .table-wrap {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .quote-table {
+      table-layout: fixed;
+      width: 100%;
+      min-width: 760px;
+    }
+
+    .quote-table col.col-qty {
+      width: 6%;
+    }
+
+    .quote-table col.col-unit {
+      width: 7%;
+    }
+
+    .quote-table col.col-code {
+      width: 11%;
+    }
+
+    .quote-table col.col-desc {
+      width: 36%;
+    }
+
+    .quote-table col.col-vu {
+      width: 9%;
+    }
+
+    .quote-table col.col-pu {
+      width: 9%;
+    }
+
+    .quote-table col.col-import {
+      width: 11%;
+    }
+
+    .quote-table col.col-actions {
+      width: 11%;
+    }
+
+    .quote-table th {
+      background: var(--accent-soft);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 5px 4px;
+      font-size: 9.5px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.15px;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .quote-table td {
+      border: 1px solid var(--line);
+      padding: 4px;
+      vertical-align: middle;
+      text-align: center;
+      background: #ffffff;
+      overflow: hidden;
+      height: 40px;
+    }
+
+    .quote-table input {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 10.5px;
+      line-height: 1.25;
+      color: var(--ink);
+      padding: 4px 2px;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .desc-cell {
+      padding: 0 !important;
+      vertical-align: middle !important;
+    }
+
+    .description {
+      width: 100%;
+      min-height: 38px;
+      height: 100%;
+      padding: 4px 6px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 10.5px;
+      line-height: 1.25;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      cursor: text;
+    }
+
+    .description:focus {
+      background: #fffdf5;
+      box-shadow: inset 0 -1px 0 var(--accent);
+    }
+
+    .description:empty::before {
+      content: attr(data-placeholder);
+      color: #999999;
+      font-weight: 400;
+    }
+
+    .quote-table input:focus {
+      background: #fffdf5;
+      box-shadow: inset 0 -1px 0 var(--accent);
+    }
+
+    .quote-table input[type="number"] {
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .quote-table input[type="number"]::-webkit-inner-spin-button,
+    .quote-table input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .center,
+    .num {
+      text-align: center;
+    }
+
+    .calc-cell {
+      font-size: 10.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    .actions-cell {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .mobile-label {
+      display: none;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 12px;
+      margin-top: 10px;
+      align-items: start;
+      max-width: 100%;
+    }
+
+    .textarea-clean {
+      width: 100%;
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: vertical;
+      min-height: 58px;
+      font-size: 11px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .textarea-clean:focus {
+      background: #fffdf5;
+      box-shadow: inset 0 0 0 1px var(--line-soft);
+    }
+
+    .conditions {
+      margin-top: 8px;
+      font-size: 10.5px;
+      line-height: 1.45;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .conditions strong {
+      font-weight: 900;
+    }
+
+    .totals-box {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #ffffff;
+      max-width: 100%;
+    }
+
+    .total-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 34px 94px;
+      border-bottom: 1px solid var(--line-soft);
+      min-height: 24px;
+      align-items: center;
+    }
+
+    .total-row:last-child {
+      border-bottom: none;
+    }
+
+    .total-row .t-label {
+      padding: 5px 7px;
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .total-row .currency {
+      padding: 5px 3px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 11px;
+    }
+
+    .total-row .amount {
+      padding: 5px 7px;
+      text-align: right;
+      font-weight: 800;
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .total-row.total-final {
+      background: var(--soft);
+    }
+
+    .total-row.total-final .t-label,
+    .total-row.total-final .amount {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .total-row input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      text-align: right;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 0;
+    }
+
+    .amount-words {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 6px 8px;
+      font-size: 11px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .amount-words strong {
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .footer {
+      margin-top: 14px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .footer-note {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 10.5px;
+      line-height: 1.4;
+      width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 86px;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .footer-note strong {
+      font-weight: 900;
+    }
+
+    .payment-qr {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      justify-self: end;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 760px;
+      max-height: 92vh;
+      overflow: auto;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line-soft);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .modal-body {
+      padding: 16px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .config-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .config-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+
+    .config-field input,
+    .config-field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 10px;
+      font-size: 12px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .config-field textarea {
+      min-height: 76px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .modal-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    @media screen and (max-width: 760px) {
+      .page {
+        padding: 8px;
+        margin: 0;
+      }
+
+      .sheet {
+        padding: 12px;
+        box-shadow: none;
+        border-left: none;
+        border-right: none;
+      }
+
+      .toolbar {
+        justify-content: stretch;
+      }
+
+      .toolbar .btn,
+      .table-actions .btn {
+        width: 100%;
+      }
+
+      .document-header {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .issuer {
+        grid-template-columns: 130px minmax(0, 1fr);
+        gap: 10px;
+        align-items: center;
+      }
+
+      .logo-box {
+        min-height: auto;
+        align-items: center;
+      }
+
+      .logo-box img {
+        width: 125px;
+        max-height: 82px;
+      }
+
+      .doc-box {
+        padding: 10px;
+      }
+
+      .info-grid,
+      .bottom-grid,
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .data-row,
+      .meta-row {
+        grid-template-columns: 82px 8px minmax(0, 1fr);
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      .quote-table {
+        min-width: 0;
+      }
+
+      .quote-table,
+      .quote-table tbody,
+      .quote-table tr,
+      .quote-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .quote-table colgroup,
+      .quote-table thead {
+        display: none;
+      }
+
+      .quote-table tr {
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding: 8px;
+        background: #ffffff;
+      }
+
+      .quote-table td {
+        border: none;
+        padding: 5px 0;
+        height: auto;
+      }
+
+      .desc-cell {
+        padding: 5px 0 !important;
+      }
+
+      .mobile-label {
+        display: block;
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 3px;
+        text-align: left;
+      }
+
+      .quote-table input,
+      .description {
+        border: 1px solid var(--line-soft);
+        border-radius: 6px;
+        padding: 8px;
+        min-height: 36px;
+        font-size: 12px;
+      }
+
+      .calc-cell {
+        border: 1px solid var(--line-soft);
+        border-radius: 6px;
+        padding: 8px;
+        min-height: 36px;
+        background: var(--soft-2);
+      }
+
+      .actions-cell {
+        text-align: left;
+      }
+
+      .btn-icon {
+        width: 42px;
+        height: 38px;
+      }
+    }
+
+    @media screen and (max-width: 420px) {
+      .issuer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .logo-box {
+        justify-content: center;
+      }
+
+      .contact-line {
+        justify-content: center;
+      }
+
+      .services {
+        text-align: center;
+      }
+
+      .data-row,
+      .meta-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .data-row .colon {
+        display: none;
+      }
+
+      .footer-note {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-qr {
+        justify-self: center;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 10mm;
+      }
+
+      html,
+      body {
+        background: #ffffff;
+        overflow: visible;
+      }
+
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .sheet {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        overflow: visible;
+      }
+
+      .no-print,
+      .modal-backdrop,
+      .actions-col,
+      .actions-cell,
+      .col-actions {
+        display: none !important;
+      }
+
+      .document-header {
+        grid-template-columns: minmax(0, 1fr) 250px;
+      }
+
+      .issuer {
+        grid-template-columns: 160px minmax(0, 1fr);
+      }
+
+      .logo-box img {
+        width: 155px;
+        max-height: 92px;
+      }
+
+      .services {
+        color: #777777 !important;
+        font-weight: 700;
+      }
+
+      .contact-icon {
+        color: #777777 !important;
+      }
+
+      .info-grid {
+        grid-template-columns: minmax(0, 1fr) 285px;
+      }
+
+      .bottom-grid {
+        grid-template-columns: minmax(0, 1fr) 265px;
+      }
+
+      .quote-table {
+        table-layout: fixed;
+        width: 100%;
+        min-width: 0;
+        page-break-inside: auto;
+      }
+
+      .quote-table colgroup {
+        display: table-column-group;
+      }
+
+      .quote-table col {
+        display: table-column;
+      }
+
+      .quote-table col.col-qty {
+        width: 3%;
+      }
+
+      .quote-table col.col-unit {
+        width: 4%;
+      }
+
+      .quote-table col.col-code {
+        width: 10%;
+      }
+
+      .quote-table col.col-desc {
+        width: 47%;
+      }
+
+      .quote-table col.col-vu {
+        width: 9%;
+      }
+
+      .quote-table col.col-pu {
+        width: 9%;
+      }
+
+      .quote-table col.col-import {
+        width: 18%;
+      }
+
+      .quote-table col.col-actions {
+        display: none;
+        width: 0;
+      }
+
+      .quote-table thead {
+        display: table-header-group;
+      }
+
+      .quote-table tbody {
+        display: table-row-group;
+      }
+
+      .quote-table tr {
+        display: table-row;
+        page-break-inside: avoid;
+      }
+
+      .quote-table td,
+      .quote-table th {
+        display: table-cell;
+        padding: 3px 2px;
+        font-size: 9.3px;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+        height: 34px;
+      }
+
+      .quote-table th {
+        background: #f2f2f2;
+        color: #000000;
+      }
+
+      .quote-table input {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        color: #000000;
+        padding: 0;
+        font-size: 9.5px;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      .desc-cell {
+        padding: 0 !important;
+        vertical-align: middle !important;
+      }
+
+      .description {
+        min-height: 32px;
+        padding: 2px 5px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        color: #000000;
+        font-size: 9.5px;
+        line-height: 1.25;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .mobile-label {
+        display: none;
+      }
+
+      input,
+      textarea,
+      select {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        color: #000000;
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      .doc-box,
+      .total-row.total-final {
+        background: #f2f2f2;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
-
-  <!-- CABECERA -->
-  <div class="header">
-    <div class="header-flex">
-      <div class="header-logo">
-        <img src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png" alt="Logo Agora">
+  <div class="page">
+    <div class="sheet">
+      <div class="toolbar no-print">
+        <button class="btn secondary" type="button" onclick="abrirConfig()">Configurar empresa</button>
+        <button class="btn secondary" type="button" onclick="agregarFila()">+ Agregar ítem</button>
+        <button class="btn" type="button" onclick="imprimir()">Imprimir / Guardar PDF</button>
+        <button class="btn success" type="button" onclick="copiarResumen()">Copiar resumen</button>
       </div>
 
-      <div class="header-middle">
-        <strong>VOLANTES - TARJETAS PERSONALES</strong><br>
-        MEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES<br>
-        TRÍPTICOS - FOTOCHEKS - FOLDERS - STICKERS - FORMATOS<br>
-        VINILES - BROCHURE - AGENDAS - TAZAS - CAJAS<br>
-        <strong>PUBLICIDAD EN GENERAL</strong>
-      </div>
+      <header class="document-header">
+        <div class="issuer">
+          <div class="logo-box">
+            <img id="companyLogo" src="https://i.postimg.cc/TYQjL4w8/logo-agora2.png" alt="Logo Ágora Comunicadores">
+          </div>
 
-      <div class="header-info">
-        <strong>PROFORMA N°</strong><br>
-        <div class="inline-row" style="justify-content:flex-end;">
-          <input id="numeroProforma" type="text" placeholder="0001-2026"
-            style="width:180px;border:none;border-bottom:2px solid white;background:transparent;color:white;text-align:right;margin-bottom:8px;">
-          <button class="btn light no-print" type="button" onclick="incrementarProforma()">+1</button>
+          <div class="issuer-info">
+            <p class="issuer-line" id="companyAddress">Jr. Las Ortigas 1216 Urb. Las Flores de Lima</p>
+
+            <p class="issuer-line contact-line">
+              <span class="contact-icon">☏</span>
+              <span id="companyPhones">951 275 458 / 933 414 437</span>
+            </p>
+
+            <p class="issuer-line contact-line">
+              <span class="contact-icon">✉</span>
+              <span id="companyEmails">agoracomunicadores2@gmail.com / agoracomunicadoreseirl@gmail.com</span>
+            </p>
+
+            <div class="services" id="companyServices">VOLANTES - TARJETAS PERSONALES<br>MEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES<br>TRÍPTICOS - FOTOCHEKS - FOLDERS - STICKERS - FORMATOS<br>VINILES - BROCHURE - AGENDAS - TAZAS - CAJAS<br>PUBLICIDAD EN GENERAL</div>
+          </div>
         </div>
 
-        Jr. Las Ortigas 1216 Urb. Las Flores de Lima<br>
-        ☏ 951 275 458 / 933 414 437<br>
-        agoracomunicadores2@gmail.com<br>
-        agoracomunicadoreseirl@gmail.com
-        <div class="ruc-box">RUC 20615031829</div>
+        <div class="doc-box">
+          <div class="ruc">RUC <span id="companyRuc">20615031829</span></div>
+          <div class="title">PROFORMA</div>
+
+          <div class="doc-number">
+            N° <input id="quoteNumber" type="text" value="PRO-0001-2026">
+          </div>
+        </div>
+      </header>
+
+      <section class="info-grid">
+        <div class="box">
+          <div class="box-title">Datos del cliente</div>
+
+          <div class="data-row">
+            <span class="label">Cliente</span>
+            <span class="colon">:</span>
+            <input id="clientName" type="text" placeholder="Razón social o nombre del cliente">
+          </div>
+
+          <div class="data-row">
+            <span class="label">RUC / DNI</span>
+            <span class="colon">:</span>
+            <input id="clientDoc" type="text" inputmode="numeric" maxlength="11" placeholder="00000000000"
+              oninput="soloNumeros(this)">
+          </div>
+
+          <div class="data-row">
+            <span class="label">Dirección</span>
+            <span class="colon">:</span>
+            <textarea id="clientAddress" placeholder="Dirección fiscal o dirección de atención"></textarea>
+          </div>
+
+          <div class="data-row">
+            <span class="label">Contacto</span>
+            <span class="colon">:</span>
+            <input id="clientContact" type="text" placeholder="Nombre / teléfono / correo">
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-title">Datos de la proforma</div>
+
+          <div class="data-row meta-row">
+            <span class="label">Fecha emisión</span>
+            <span class="colon">:</span>
+            <input id="issueDate" type="text">
+          </div>
+
+          <div class="data-row meta-row">
+            <span class="label">Válido hasta</span>
+            <span class="colon">:</span>
+            <input id="validUntil" type="text">
+          </div>
+
+          <div class="data-row meta-row">
+            <span class="label">Moneda</span>
+            <span class="colon">:</span>
+            <select id="currencyName" onchange="calcular()">
+              <option value="SOLES">SOLES</option>
+              <option value="DÓLARES">DÓLARES</option>
+            </select>
+          </div>
+
+          <div class="data-row meta-row">
+            <span class="label">Forma pago</span>
+            <span class="colon">:</span>
+            <input id="paymentMethod" type="text" value="Transferencia bancaria / efectivo">
+          </div>
+
+          <div class="data-row meta-row">
+            <span class="label">IGV</span>
+            <span class="colon">:</span>
+            <label class="igv-inline">
+              <input id="applyIgv" type="checkbox" onchange="calcular()">
+              Aplicar IGV 18%
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="table-wrap">
+        <table class="quote-table" id="quoteTable">
+          <colgroup>
+            <col class="col-qty">
+            <col class="col-unit">
+            <col class="col-code">
+            <col class="col-desc">
+            <col class="col-vu">
+            <col class="col-pu">
+            <col class="col-import">
+            <col class="col-actions">
+          </colgroup>
+
+          <thead>
+            <tr>
+              <th>Cant.</th>
+              <th>Unid.</th>
+              <th>Cód.</th>
+              <th>Descripción</th>
+              <th>V/U</th>
+              <th>P/U</th>
+              <th>Importe</th>
+              <th class="actions-col">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody id="itemsBody"></tbody>
+        </table>
+      </section>
+
+      <div class="table-actions no-print">
+        <button class="btn secondary" type="button" onclick="agregarFila()">+ Agregar otro ítem</button>
       </div>
+
+      <section class="bottom-grid">
+        <div>
+          <div class="box">
+            <div class="box-title">Observaciones</div>
+            <textarea id="observations" class="textarea-clean"
+              placeholder="Ej: Papel couché 150g, plastificado mate, medidas, acabados, tiempo de entrega u otra condición del trabajo."></textarea>
+          </div>
+
+          <div class="conditions">
+            <strong>Condiciones comerciales:</strong><br>
+            1. Esta proforma tiene validez de 7 días.<br>
+            2. El trabajo se realiza con un 50% de adelanto.<br>
+            3. Una vez realizado el adelanto, no hay opción de devolución.<br>
+            4. Los precios no incluyen IGV, salvo que se marque la opción correspondiente.
+          </div>
+        </div>
+
+        <div class="totals-box">
+          <div class="total-row">
+            <div class="t-label">Gravada</div>
+            <div class="currency">S/</div>
+            <div class="amount" id="taxableAmount">0.00</div>
+          </div>
+
+          <div class="total-row">
+            <div class="t-label">IGV 18%</div>
+            <div class="currency">S/</div>
+            <div class="amount" id="igvAmount">0.00</div>
+          </div>
+
+          <div class="total-row total-final">
+            <div class="t-label">Total</div>
+            <div class="currency">S/</div>
+            <div class="amount" id="totalAmount">0.00</div>
+          </div>
+
+          <div class="total-row">
+            <div class="t-label">Adelanto</div>
+            <div class="currency">S/</div>
+            <div class="amount">
+              <input id="advanceAmount" type="number" min="0" step="0.01" value="0.00" oninput="calcular()">
+            </div>
+          </div>
+
+          <div class="total-row">
+            <div class="t-label">Saldo</div>
+            <div class="currency">S/</div>
+            <div class="amount" id="balanceAmount">0.00</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="amount-words">
+        <strong>Importe en letras:</strong>
+        <span id="amountWords">CERO CON 00/100 SOLES</span>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-note">
+          <div>
+            <strong>Datos de pago — ÁGORA COMUNICADORES:</strong><br>
+            <strong>Cuenta Bancaria:</strong> <span id="bankAccount">1917301768030</span><br>
+            <strong>CCI:</strong> <span id="bankCci">00219100730176803054</span><br>
+            <span id="walletRow"><strong>Yape / Plin:</strong> <span id="digitalWallet">Consultar</span><br></span>
+            <br>
+            <strong>Nota:</strong> Documento referencial emitido para fines comerciales. No constituye comprobante de pago.
+          </div>
+
+          <img id="paymentQr" class="payment-qr" src="https://i.postimg.cc/2yDdhpvs/QR-agora-200x.png" alt="QR Ágora">
+        </div>
+      </footer>
     </div>
   </div>
 
-  <!-- DATOS -->
-  <div class="section">
-    <div class="section-title">Datos</div>
-    <div class="grid-2">
-      <div class="field">
-        <label>Cliente / Razón social</label>
-        <input id="clienteNombre" type="text" placeholder="Clientes Varios">
+  <div class="modal-backdrop no-print" id="configModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Configurar datos de la empresa</h2>
+        <button class="btn secondary" type="button" onclick="cerrarConfig()">Cerrar</button>
       </div>
 
-      <div class="field">
-        <label>Teléfono</label>
-        <input
-          id="clienteTelefono"
-          type="tel"
-          inputmode="numeric"
-          pattern="[0-9]*"
-          maxlength="15"
-          placeholder="999999999"
-          oninput="soloNumerosTelefono(this)">
-      </div>
+      <div class="modal-body">
+        <div class="config-grid">
+          <div class="config-field full">
+            <label>URL del logo</label>
+            <input id="cfgLogo" type="text" placeholder="https://...">
+          </div>
 
-      <div class="field">
-        <label>Dirección</label>
-        <input id="clienteDireccion" type="text" placeholder="Av.">
-      </div>
+          <div class="config-field">
+            <label>RUC</label>
+            <input id="cfgRuc" type="text" maxlength="11" placeholder="20615031829" oninput="soloNumeros(this)">
+          </div>
 
-      <div class="field">
-        <label>RUC o DNI</label>
-        <input
-          id="clienteDoc"
-          type="text"
-          inputmode="numeric"
-          pattern="[0-9]*"
-          maxlength="11"
-          placeholder="0000000"
-          oninput="soloNumerosDoc(this)">
-      </div>
-    </div>
+          <div class="config-field">
+            <label>Teléfono 1</label>
+            <input id="cfgPhone1" type="text" placeholder="951 275 458">
+          </div>
 
-    <div class="inline-row" style="margin-top:10px;">
-      <div class="pill">
-        <small><strong>Fecha:</strong></small>
-        <input id="fecha" type="text" style="width:180px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
-      </div>
-      <div class="pill">
-        <small><strong>Válido hasta:</strong></small>
-        <input id="validoHasta" type="text" style="width:180px;border:none;border-bottom:1px solid rgba(255,255,255,0);">
-      </div>
-      <div class="pill" style="width:250px">
-        <small><strong>Fecha de entrega:</strong></small>
-        <input id="fechaEntrega" type="date" style="border:none;">
-      </div>
-    </div>
-  </div>
+          <div class="config-field">
+            <label>Teléfono 2</label>
+            <input id="cfgPhone2" type="text" placeholder="933 414 437">
+          </div>
 
-  <!-- TABLA -->
-  <div class="section">
-    <div class="section-title">Detalle de productos / servicios</div>
+          <div class="config-field">
+            <label>Correo 1</label>
+            <input id="cfgEmail1" type="text" placeholder="agoracomunicadores2@gmail.com">
+          </div>
 
-    <div>
-      <table id="tabla">
-        <tr>
-          <th style="width:22%;">PRODUCTO</th>
-          <th>DESCRIPCIÓN</th>
-          <th style="width:10%;">CANT.</th>
-          <th style="width:12%;">P. UNIT</th>
-          <th style="width:12%;">TOTAL</th>
-          <th class="acciones-col" style="width:14%;">ACCIONES</th>
-        </tr>
-      </table>
-    </div>
+          <div class="config-field">
+            <label>Correo 2</label>
+            <input id="cfgEmail2" type="text" placeholder="agoracomunicadoreseirl@gmail.com">
+          </div>
 
-    <button class="btn no-print" type="button" onclick="agregarFila()">+ Agregar ítem</button>
-    <!-- ✅ IMPORTANTE: ahora imprimimos con función para asegurar que se refleje -->
-    <button class="btn secondary no-print" type="button" onclick="imprimir()">🖨️ Imprimir / Guardar PDF</button>
-    <button class="btn light no-print" type="button" onclick="copiarResumen()">📋 Copiar resumen (WhatsApp)</button>
-  </div>
+          <div class="config-field full">
+            <label>Dirección</label>
+            <input id="cfgAddress" type="text" placeholder="Jr. Las Ortigas 1216 Urb. Las Flores de Lima">
+          </div>
 
-  <!-- CONDICIONES -->
-  <div class="section" id="condicionesUI">
-    <div class="section-title">Condiciones</div>
+          <div class="config-field full">
+            <label>Servicios principales</label>
+            <textarea id="cfgServices" placeholder="VOLANTES - TARJETAS PERSONALES..."></textarea>
+          </div>
 
-    <div class="checks">
-      <label class="check">
-        <input id="cIncluyeDiseno" type="checkbox">
-        <span>Incluye diseño</span>
-      </label>
+          <div class="config-field">
+            <label>Cuenta bancaria</label>
+            <input id="cfgBank" type="text" placeholder="1917301768030">
+          </div>
 
-      <label class="check">
-        <input id="cIncluyeInstalacion" type="checkbox">
-        <span>Incluye instalación</span>
-      </label>
+          <div class="config-field">
+            <label>CCI</label>
+            <input id="cfgCci" type="text" placeholder="00219100730176803054">
+          </div>
 
-      <label class="check">
-        <input id="cEntregaDomicilio" type="checkbox">
-        <span>Entrega a domicilio</span>
-      </label>
+          <div class="config-field">
+            <label>Yape / Plin</label>
+            <input id="cfgWallet" type="text" placeholder="Consultar">
+          </div>
 
-      <label class="check">
-        <input id="cUrgente" type="checkbox">
-        <span>Urgente</span>
-      </label>
-    </div>
+          <div class="config-field full">
+            <label>URL del QR de pago</label>
+            <input id="cfgQr" type="text" placeholder="https://...">
+          </div>
+        </div>
 
-    <div class="grid-2" style="margin-top:12px;">
-      <div class="field" style="grid-column:1 / -1;">
-        <label>Observaciones</label>
-        <textarea id="observaciones" placeholder="Ej: Papel couché 150g, plastificado mate, medidas..."></textarea>
-      </div>
-    </div>
-  </div>
+        <div class="modal-note">
+          Los datos se guardan solo en este navegador mediante localStorage.
+        </div>
 
-  <!-- RESUMEN CONDICIONES PARA IMPRESIÓN -->
-  <div id="condicionesPrint" style="display:none;">
-    <div style="font-weight:bold; color:#111; margin-bottom:6px;">Condiciones / Observaciones</div>
-    <div id="condicionesPrintBody" style="font-size:11pt; line-height:1.4;"></div>
-  </div>
-
-  <!-- TOTALES -->
-  <div class="totals-wrap">
-    <div class="note-box">
-      <strong>Nota:</strong> Esta proforma tiene validez 7 días.<br>
-      El trabajo se realiza con un <strong>50% de adelanto</strong><br>
-      Una vez realizado el adelanto, no hay opción de devolución<br>
-       <strong>Los precios no incluyen IGV.</strong>
-    </div>
-
-    <div class="total-box">
-      <div class="total-row">
-        <span>SUBTOTAL S/.</span>
-        <strong id="subtotal">0.00</strong>
-      </div>
-
-      <div class="total-row">
-        <span>ADELANTO S/.</span>
-        <input id="adelanto" type="number" min="0" step="0.01" value="0.00" oninput="recalcularSaldoDesdeAdelanto()">
-      </div>
-
-      <div class="total-row">
-        <span>SALDO S/.</span>
-        <strong id="saldo">0.00</strong>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <img src="https://i.postimg.cc/ncTKjPLN/logo-azul.png" alt="Logo">
-    <img class="qr" src="https://i.postimg.cc/2yDdhpvs/QR-agora-200x.png" alt="QR">
-
-    <div style="margin-top:8px;">
-      <strong>Cuenta Bancaria:</strong> 1917301768030<br>
-      <strong>CCI:</strong> 00219100730176803054
-    </div>
-  </div>
-
-</div>
-
-<script>
-/* Helpers */
-function pad2(n){ return String(n).padStart(2, "0"); }
-function fechaDDMMYYYY(d){
-  return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}`;
-}
-function soloNumerosTelefono(input){ input.value = input.value.replace(/\D/g, ""); }
-function soloNumerosDoc(input){ input.value = input.value.replace(/\D/g, ""); }
-function parseNumber(v){
-  const n = Number(v);
-  return Number.isFinite(n) ? n : 0;
-}
-function money(n){
-  return (Math.round(n * 100) / 100).toFixed(2);
-}
-
-/* Init fechas + 1 fila */
-(function init(){
-  const hoy = new Date();
-  document.getElementById("fecha").value = fechaDDMMYYYY(hoy);
-
-  const valido = new Date(hoy);
-  valido.setDate(valido.getDate() + 7);
-  document.getElementById("validoHasta").value = fechaDDMMYYYY(valido);
-
-  agregarFila();
-  wireCondiciones();
-  syncCondicionesPrint(); // ✅ deja listo el bloque de impresión
-})();
-
-/* Proforma +1 */
-function incrementarProforma(){
-  const input = document.getElementById("numeroProforma");
-  const v = (input.value || "").trim();
-
-  const m = v.match(/^(\d+)\-(\d{4})$/);
-  if (!m){
-    const y = new Date().getFullYear();
-    input.value = `0001-${y}`;
-    return;
-  }
-  const num = parseInt(m[1], 10);
-  const year = m[2];
-  const next = String(num + 1).padStart(m[1].length, "0");
-  input.value = `${next}-${year}`;
-}
-
-/* Tabla */
-function crearFila(data = {}){
-  const { producto="", desc="", cant=1, precio=0 } = data;
-
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td data-label="Producto">
-      <div class="m-row">
-        <span class="m-label">Producto</span>
-        <input type="text" class="producto" value="${escapeHtml(producto)}" placeholder="Ej: Volantes A5">
-      </div>
-    </td>
-
-    <td data-label="Descripción">
-      <div class="m-row">
-        <span class="m-label">Descripción</span>
-        <input type="text" class="desc" value="${escapeHtml(desc)}" placeholder="Detalles: material, medida, acabado">
-      </div>
-    </td>
-
-    <td data-label="Cant.">
-      <div class="m-row">
-        <span class="m-label">Cant.</span>
-        <input type="number" class="cant center" min="0" step="1" value="${escapeHtml(cant)}" oninput="calcular()">
-      </div>
-    </td>
-
-    <td data-label="P. Unit">
-      <div class="m-row">
-        <span class="m-label">P. Unit</span>
-        <input type="number" class="precio num" min="0" step="0.01" value="${escapeHtml(precio)}" placeholder="S/" oninput="calcular()">
-      </div>
-    </td>
-
-    <td data-label="Total" class="num">
-      <div class="m-row total">
-        <span class="m-label">Total</span>
-        <span class="totalItem num">0.00</span>
-      </div>
-    </td>
-
-    <td data-label="Acciones" class="acciones">
-      <div class="m-row">
-        <span class="m-label">Acciones</span>
-        <div class="actions-buttons">
-          <button type="button" class="btn-icon" title="Duplicar fila" onclick="duplicarFila(this)">⧉</button>
-          <button type="button" class="btn-icon" title="Eliminar fila" onclick="eliminarFila(this)">✕</button>
+        <div class="modal-actions">
+          <button class="btn danger" type="button" onclick="restaurarConfig()">Restaurar datos</button>
+          <button class="btn" type="button" onclick="guardarConfig()">Guardar configuración</button>
         </div>
       </div>
-    </td>
-  `;
-  return tr;
-}
+    </div>
+  </div>
 
-function agregarFila(){
-  const tabla = document.getElementById("tabla");
-  tabla.appendChild(crearFila());
-  calcular();
-}
+  <script>
+    const CONFIG_KEY = "proforma_agora_comunicadores_config_v1";
 
-function eliminarFila(btn){
-  const fila = btn.closest("tr");
-  if (fila) fila.remove();
-  calcular();
-}
+    const DEFAULT_CONFIG = {
+      logo: "https://i.postimg.cc/TYQjL4w8/logo-agora2.png",
+      ruc: "20615031829",
+      address: "Jr. Las Ortigas 1216 Urb. Las Flores de Lima",
+      phone1: "951 275 458",
+      phone2: "933 414 437",
+      email1: "agoracomunicadores2@gmail.com",
+      email2: "agoracomunicadoreseirl@gmail.com",
+      services: "VOLANTES - TARJETAS PERSONALES\nMEMBRETES - LAPICEROS - HANGTAG - ALMANAQUES\nTRÍPTICOS - FOTOCHEKS - FOLDERS - STICKERS - FORMATOS\nVINILES - BROCHURE - AGENDAS - TAZAS - CAJAS\nPUBLICIDAD EN GENERAL",
+      bank: "1917301768030",
+      cci: "00219100730176803054",
+      wallet: "Consultar",
+      qr: "https://i.postimg.cc/2yDdhpvs/QR-agora-200x.png"
+    };
 
-function duplicarFila(btn){
-  const fila = btn.closest("tr");
-  if (!fila) return;
+    function pad2(n) {
+      return String(n).padStart(2, "0");
+    }
 
-  const producto = fila.querySelector(".producto").value;
-  const desc = fila.querySelector(".desc").value;
-  const cant = fila.querySelector(".cant").value;
-  const precio = fila.querySelector(".precio").value;
+    function fechaDDMMYYYY(date) {
+      return `${pad2(date.getDate())}/${pad2(date.getMonth() + 1)}/${date.getFullYear()}`;
+    }
 
-  const nueva = crearFila({ producto, desc, cant, precio });
-  fila.insertAdjacentElement("afterend", nueva);
-  calcular();
-}
+    function soloNumeros(input) {
+      input.value = input.value.replace(/\D/g, "");
+    }
 
-/* Totales */
-let adelantoAuto = true;
+    function parseNumber(value) {
+      const n = Number(String(value || "0").replace(",", "."));
+      return Number.isFinite(n) ? n : 0;
+    }
 
-function calcular(){
-  let subtotal = 0;
+    function money(value) {
+      return (Math.round((parseNumber(value) + Number.EPSILON) * 100) / 100).toFixed(2);
+    }
 
-  document.querySelectorAll("#tabla tr").forEach((tr, i) => {
-    if (i === 0) return;
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-    const cant = parseNumber(tr.querySelector(".cant")?.value);
-    const precio = parseNumber(tr.querySelector(".precio")?.value);
-    const lineTotal = Math.max(0, cant * precio);
+    function getDescriptionValue(row) {
+      return row.querySelector(".description")?.innerText.trim() || "";
+    }
 
-    const totalEl = tr.querySelector(".totalItem");
-    if (totalEl) totalEl.textContent = money(lineTotal);
-    subtotal += lineTotal;
-  });
+    function textToHtmlLines(text) {
+      return escapeHtml(text || "").replace(/\n/g, "<br>");
+    }
 
-  document.getElementById("subtotal").textContent = money(subtotal);
+    function init() {
+      const today = new Date();
+      const valid = new Date(today);
+      valid.setDate(valid.getDate() + 7);
 
-  const adelantoInput = document.getElementById("adelanto");
-  if (adelantoAuto) adelantoInput.value = money(subtotal * 0.50);
+      document.getElementById("issueDate").value = fechaDDMMYYYY(today);
+      document.getElementById("validUntil").value = fechaDDMMYYYY(valid);
+      document.getElementById("quoteNumber").value = `PRO-0001-${today.getFullYear()}`;
 
-  const adelanto = parseNumber(adelantoInput.value);
-  document.getElementById("saldo").textContent = money(Math.max(0, subtotal - adelanto));
-}
+      cargarConfig();
+      agregarFila({ qty: 1, unit: "NIU", code: "", description: "", price: 0 });
+      calcular();
+    }
 
-function recalcularSaldoDesdeAdelanto(){
-  adelantoAuto = false;
-  calcular();
-}
+    function obtenerConfigGuardada() {
+      const raw = localStorage.getItem(CONFIG_KEY);
+      if (!raw) return { ...DEFAULT_CONFIG };
 
-/* ===== Condiciones + Observaciones (impresión garantizada) ===== */
-function getCondicionesSeleccionadas(){
-  const cond = [];
-  if (document.getElementById("cIncluyeDiseno").checked) cond.push("Incluye diseño");
-  if (document.getElementById("cIncluyeInstalacion").checked) cond.push("Incluye instalación");
-  if (document.getElementById("cEntregaDomicilio").checked) cond.push("Entrega a domicilio");
-  if (document.getElementById("cUrgente").checked) cond.push("Urgente");
-  return cond;
-}
+      try {
+        return { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
+      } catch {
+        return { ...DEFAULT_CONFIG };
+      }
+    }
 
-function syncCondicionesPrint(){
-  const cond = getCondicionesSeleccionadas();
-  const obsRaw = (document.getElementById("observaciones").value || "").trim();
+    function cargarConfig() {
+      aplicarConfig(obtenerConfigGuardada());
+    }
 
-  const lines = [];
+    function aplicarConfig(cfg) {
+      const phones = [cfg.phone1, cfg.phone2].filter(Boolean).join(" / ") || "Teléfono no configurado";
+      const emails = [cfg.email1, cfg.email2].filter(Boolean).join(" / ") || "Correo no configurado";
+      const addressEl = document.getElementById("companyAddress");
+      const walletText = cfg.wallet || "Consultar";
 
-  // Condiciones
-  if (cond.length){
-    lines.push(`• Condiciones: <strong>${escapeHtml(cond.join(" | "))}</strong>`);
-  } else {
-    lines.push(`• Condiciones: <strong>(sin marcar)</strong>`);
-  }
+      document.getElementById("companyLogo").src = cfg.logo || DEFAULT_CONFIG.logo;
+      document.getElementById("companyRuc").textContent = cfg.ruc || DEFAULT_CONFIG.ruc;
 
-  // Observaciones (con saltos de línea)
-  if (obsRaw){
-    const obsHtml = escapeHtml(obsRaw).replace(/\n/g, "<br>");
-    lines.push(`• Observaciones: <strong>${obsHtml}</strong>`);
-  } else {
-    lines.push(`• Observaciones: <strong>(vacío)</strong>`);
-  }
+      addressEl.textContent = cfg.address || "";
+      addressEl.classList.toggle("empty", !cfg.address);
 
-  document.getElementById("condicionesPrintBody").innerHTML = lines.join("<br>");
-}
+      document.getElementById("companyPhones").textContent = phones;
+      document.getElementById("companyEmails").textContent = emails;
+      document.getElementById("companyServices").innerHTML = textToHtmlLines(cfg.services || DEFAULT_CONFIG.services);
 
-function wireCondiciones(){
-  const ids = ["cIncluyeDiseno","cIncluyeInstalacion","cEntregaDomicilio","cUrgente"];
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener("change", syncCondicionesPrint);
-  });
+      document.getElementById("digitalWallet").textContent = walletText;
+      document.getElementById("bankAccount").textContent = cfg.bank || DEFAULT_CONFIG.bank;
+      document.getElementById("bankCci").textContent = cfg.cci || DEFAULT_CONFIG.cci;
+      document.getElementById("paymentQr").src = cfg.qr || DEFAULT_CONFIG.qr;
+      document.getElementById("walletRow").style.display = walletText ? "inline" : "none";
+    }
 
-  const obs = document.getElementById("observaciones");
-  if (obs) obs.addEventListener("input", syncCondicionesPrint);
+    function abrirConfig() {
+      const cfg = obtenerConfigGuardada();
 
-  // respaldo adicional: antes de imprimir, vuelve a sincronizar
-  window.addEventListener("beforeprint", syncCondicionesPrint);
-}
+      document.getElementById("cfgLogo").value = cfg.logo;
+      document.getElementById("cfgRuc").value = cfg.ruc;
+      document.getElementById("cfgAddress").value = cfg.address;
+      document.getElementById("cfgPhone1").value = cfg.phone1;
+      document.getElementById("cfgPhone2").value = cfg.phone2;
+      document.getElementById("cfgEmail1").value = cfg.email1;
+      document.getElementById("cfgEmail2").value = cfg.email2;
+      document.getElementById("cfgServices").value = cfg.services;
+      document.getElementById("cfgBank").value = cfg.bank;
+      document.getElementById("cfgCci").value = cfg.cci;
+      document.getElementById("cfgWallet").value = cfg.wallet;
+      document.getElementById("cfgQr").value = cfg.qr;
 
-function imprimir(){
-  // ✅ Esto hace que SIEMPRE se refleje aunque el navegador no dispare beforeprint
-  syncCondicionesPrint();
-  window.print();
-}
+      document.getElementById("configModal").classList.add("show");
+    }
 
-/* Copiar resumen */
-async function copiarResumen(){
-  const nro = (document.getElementById("numeroProforma").value || "").trim();
-  const fecha = document.getElementById("fecha").value;
-  const valido = document.getElementById("validoHasta").value;
-  const entrega = document.getElementById("fechaEntrega").value;
+    function cerrarConfig() {
+      document.getElementById("configModal").classList.remove("show");
+    }
 
-  const cliente = (document.getElementById("clienteNombre").value || "").trim();
-  const tel = (document.getElementById("clienteTelefono").value || "").trim();
-  const doc = (document.getElementById("clienteDoc").value || "").trim();
+    function guardarConfig() {
+      const cfg = {
+        logo: document.getElementById("cfgLogo").value.trim() || DEFAULT_CONFIG.logo,
+        ruc: document.getElementById("cfgRuc").value.trim() || DEFAULT_CONFIG.ruc,
+        address: document.getElementById("cfgAddress").value.trim(),
+        phone1: document.getElementById("cfgPhone1").value.trim(),
+        phone2: document.getElementById("cfgPhone2").value.trim(),
+        email1: document.getElementById("cfgEmail1").value.trim(),
+        email2: document.getElementById("cfgEmail2").value.trim(),
+        services: document.getElementById("cfgServices").value.trim() || DEFAULT_CONFIG.services,
+        bank: document.getElementById("cfgBank").value.trim() || DEFAULT_CONFIG.bank,
+        cci: document.getElementById("cfgCci").value.trim() || DEFAULT_CONFIG.cci,
+        wallet: document.getElementById("cfgWallet").value.trim() || DEFAULT_CONFIG.wallet,
+        qr: document.getElementById("cfgQr").value.trim() || DEFAULT_CONFIG.qr
+      };
 
-  const subtotal = document.getElementById("subtotal").textContent;
-  const adelanto = money(parseNumber(document.getElementById("adelanto").value));
-  const saldo = document.getElementById("saldo").textContent;
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(cfg));
+      aplicarConfig(cfg);
+      cerrarConfig();
+    }
 
-  const rows = getRowsData().filter(r => ((r.producto || "") + (r.desc || "")).trim() !== "");
+    function restaurarConfig() {
+      localStorage.removeItem(CONFIG_KEY);
+      aplicarConfig(DEFAULT_CONFIG);
+      abrirConfig();
+    }
 
-  const lines = [];
-  lines.push(`🧾 PROFORMA ${nro ? nro : ""}`.trim());
-  lines.push(`📅 Fecha: ${fecha} (Válida hasta: ${valido})`);
-  if (cliente) lines.push(`👤 Cliente: ${cliente}`);
-  if (tel) lines.push(`📞 Tel: ${tel}`);
-  if (doc) lines.push(`🪪 RUC/DNI: ${doc}`);
-  if (entrega) lines.push(`🚚 Entrega: ${entrega}`);
-  lines.push("");
-  lines.push("🧩 Detalle:");
-
-  rows.forEach((r, idx) => {
-    const cant = r.cant ?? 0;
-    const p = money(parseNumber(r.precio));
-    const lt = money(Math.max(0, parseNumber(r.cant) * parseNumber(r.precio)));
-    const nombre = (r.producto || "").trim() ? `${r.producto}` : "(sin producto)";
-    const desc = (r.desc || "").trim() ? ` — ${r.desc}` : "";
-    lines.push(`${idx+1}) ${nombre}${desc} | ${cant} x S/${p} = S/${lt}`);
-  });
-
-  lines.push("");
-  lines.push(`💰 Subtotal: S/${subtotal}`);
-  lines.push(`✅ Adelanto: S/${adelanto}`);
-  lines.push(`📌 Saldo: S/${saldo}`);
-
-  const cond = getCondicionesSeleccionadas();
-  if (cond.length){
-    lines.push("");
-    lines.push("📌 Condiciones: " + cond.join(" | "));
-  }
-
-  const obs = (document.getElementById("observaciones").value || "").trim();
-  if (obs) lines.push("📝 Obs: " + obs);
-
-  const text = lines.join("\n");
-
-  try{
-    await navigator.clipboard.writeText(text);
-    alert("Resumen copiado ✅ Pégalo en WhatsApp.");
-  }catch{
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    ta.remove();
-    alert("Resumen copiado ✅ (modo compatibilidad).");
-  }
-}
-
-function getRowsData(){
-  const rows = [];
-  document.querySelectorAll("#tabla tr").forEach((tr, i) => {
-    if (i === 0) return;
-    rows.push({
-      producto: tr.querySelector(".producto")?.value || "",
-      desc: tr.querySelector(".desc")?.value || "",
-      cant: tr.querySelector(".cant")?.value || 0,
-      precio: tr.querySelector(".precio")?.value || 0
+    document.getElementById("configModal").addEventListener("click", function (event) {
+      if (event.target === this) cerrarConfig();
     });
-  });
-  return rows;
-}
 
-/* Escapes */
-function escapeHtml(str){
-  return String(str)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-</script>
+    function crearFila(data = {}) {
+      const qty = data.qty ?? 1;
+      const unit = data.unit ?? "NIU";
+      const code = data.code ?? "";
+      const description = data.description ?? "";
+      const price = data.price ?? 0;
 
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>
+          <span class="mobile-label">Cantidad</span>
+          <input class="qty center" type="number" min="0" step="1" value="${escapeHtml(qty)}" oninput="calcular()">
+        </td>
+
+        <td>
+          <span class="mobile-label">Unidad</span>
+          <input class="unit center" type="text" value="${escapeHtml(unit)}" placeholder="NIU">
+        </td>
+
+        <td>
+          <span class="mobile-label">Código</span>
+          <input class="code center" type="text" value="${escapeHtml(code)}" placeholder="AG-001">
+        </td>
+
+        <td class="desc-cell">
+          <span class="mobile-label">Descripción</span>
+          <div class="description" contenteditable="true" data-placeholder="Descripción del producto o servicio">${escapeHtml(description)}</div>
+        </td>
+
+        <td class="num">
+          <span class="mobile-label">Valor unitario</span>
+          <span class="calc-cell valueUnit">0.00</span>
+        </td>
+
+        <td>
+          <span class="mobile-label">Precio unitario</span>
+          <input class="price num" type="number" min="0" step="0.01" value="${escapeHtml(price)}" placeholder="0.00" oninput="calcular()">
+        </td>
+
+        <td class="num">
+          <span class="mobile-label">Importe</span>
+          <span class="calc-cell lineTotal">0.00</span>
+        </td>
+
+        <td class="actions-cell">
+          <span class="mobile-label">Acciones</span>
+          <button class="btn-icon" type="button" title="Duplicar fila" onclick="duplicarFila(this)">⧉</button>
+          <button class="btn-icon" type="button" title="Eliminar fila" onclick="eliminarFila(this)">×</button>
+        </td>
+      `;
+
+      return tr;
+    }
+
+    function agregarFila(data = {}) {
+      document.getElementById("itemsBody").appendChild(crearFila(data));
+      calcular();
+    }
+
+    function eliminarFila(button) {
+      const row = button.closest("tr");
+      if (row) row.remove();
+
+      if (document.querySelectorAll("#itemsBody tr").length === 0) {
+        agregarFila();
+      }
+
+      calcular();
+    }
+
+    function duplicarFila(button) {
+      const row = button.closest("tr");
+      if (!row) return;
+
+      const data = {
+        qty: row.querySelector(".qty").value,
+        unit: row.querySelector(".unit").value,
+        code: row.querySelector(".code").value,
+        description: getDescriptionValue(row),
+        price: row.querySelector(".price").value
+      };
+
+      row.insertAdjacentElement("afterend", crearFila(data));
+      calcular();
+    }
+
+    function getRowsData() {
+      return [...document.querySelectorAll("#itemsBody tr")].map(row => ({
+        qty: parseNumber(row.querySelector(".qty")?.value),
+        unit: row.querySelector(".unit")?.value || "",
+        code: row.querySelector(".code")?.value || "",
+        description: getDescriptionValue(row),
+        price: parseNumber(row.querySelector(".price")?.value)
+      }));
+    }
+
+    function calcular() {
+      const applyIgv = document.getElementById("applyIgv").checked;
+      let total = 0;
+
+      document.querySelectorAll("#itemsBody tr").forEach(row => {
+        const qty = parseNumber(row.querySelector(".qty")?.value);
+        const price = parseNumber(row.querySelector(".price")?.value);
+
+        const valueUnit = applyIgv ? price / 1.18 : price;
+        const lineTotal = Math.max(0, qty * price);
+
+        row.querySelector(".valueUnit").textContent = money(valueUnit);
+        row.querySelector(".lineTotal").textContent = money(lineTotal);
+
+        total += lineTotal;
+      });
+
+      const taxable = applyIgv ? total / 1.18 : total;
+      const igv = applyIgv ? total - taxable : 0;
+      const advance = parseNumber(document.getElementById("advanceAmount").value);
+      const balance = Math.max(0, total - advance);
+
+      document.getElementById("taxableAmount").textContent = money(taxable);
+      document.getElementById("igvAmount").textContent = money(igv);
+      document.getElementById("totalAmount").textContent = money(total);
+      document.getElementById("balanceAmount").textContent = money(balance);
+
+      actualizarImporteLetras(total);
+    }
+
+    function actualizarImporteLetras(total) {
+      const currency = document.getElementById("currencyName").value || "SOLES";
+      document.getElementById("amountWords").textContent = montoEnLetras(total, currency);
+    }
+
+    function grupoCentenas(n) {
+      const unidades = [
+        "", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
+        "DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS",
+        "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE"
+      ];
+
+      const decenas = ["", "", "VEINTI", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"];
+      const centenas = ["", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS"];
+
+      n = Math.floor(n);
+
+      if (n === 0) return "";
+      if (n === 100) return "CIEN";
+      if (n <= 20) return unidades[n];
+      if (n < 30) return decenas[2] + unidades[n - 20];
+
+      if (n < 100) {
+        const d = Math.floor(n / 10);
+        const u = n % 10;
+        return decenas[d] + (u ? " Y " + unidades[u] : "");
+      }
+
+      const c = Math.floor(n / 100);
+      const r = n % 100;
+
+      return centenas[c] + (r ? " " + grupoCentenas(r) : "");
+    }
+
+    function enteroEnLetras(num) {
+      num = Math.floor(num);
+
+      if (num === 0) return "CERO";
+
+      const millones = Math.floor(num / 1000000);
+      const miles = Math.floor((num % 1000000) / 1000);
+      const resto = num % 1000;
+      const partes = [];
+
+      if (millones > 0) {
+        partes.push(millones === 1 ? "UN MILLÓN" : grupoCentenas(millones) + " MILLONES");
+      }
+
+      if (miles > 0) {
+        partes.push(miles === 1 ? "MIL" : grupoCentenas(miles) + " MIL");
+      }
+
+      if (resto > 0) {
+        partes.push(grupoCentenas(resto));
+      }
+
+      return partes.join(" ");
+    }
+
+    function montoEnLetras(value, currency) {
+      let total = parseNumber(value);
+      let entero = Math.floor(total);
+      let centimos = Math.round((total - entero) * 100);
+
+      if (centimos === 100) {
+        entero += 1;
+        centimos = 0;
+      }
+
+      return `${enteroEnLetras(entero)} CON ${pad2(centimos)}/100 ${currency}`;
+    }
+
+    function imprimir() {
+      calcular();
+      window.print();
+    }
+
+    window.addEventListener("beforeprint", function () {
+      calcular();
+    });
+
+    async function copiarResumen() {
+      calcular();
+
+      const quoteNumber = document.getElementById("quoteNumber").value.trim();
+      const issueDate = document.getElementById("issueDate").value.trim();
+      const validUntil = document.getElementById("validUntil").value.trim();
+      const clientName = document.getElementById("clientName").value.trim();
+      const clientDoc = document.getElementById("clientDoc").value.trim();
+      const clientAddress = document.getElementById("clientAddress").value.trim();
+      const clientContact = document.getElementById("clientContact").value.trim();
+      const observations = document.getElementById("observations").value.trim();
+
+      const taxable = document.getElementById("taxableAmount").textContent;
+      const igv = document.getElementById("igvAmount").textContent;
+      const total = document.getElementById("totalAmount").textContent;
+      const advance = money(document.getElementById("advanceAmount").value);
+      const balance = document.getElementById("balanceAmount").textContent;
+
+      const rows = getRowsData().filter(row => {
+        return String(row.code + row.description).trim() !== "" || row.price > 0;
+      });
+
+      const lines = [];
+
+      lines.push(`PROFORMA ${quoteNumber}`);
+      lines.push(`Fecha: ${issueDate}`);
+      lines.push(`Válido hasta: ${validUntil}`);
+
+      if (clientName) lines.push(`Cliente: ${clientName}`);
+      if (clientDoc) lines.push(`RUC/DNI: ${clientDoc}`);
+      if (clientAddress) lines.push(`Dirección: ${clientAddress}`);
+      if (clientContact) lines.push(`Contacto: ${clientContact}`);
+
+      lines.push("");
+      lines.push("DETALLE:");
+
+      rows.forEach((row, index) => {
+        const lineTotal = money(row.qty * row.price);
+        const code = row.code ? `[${row.code}] ` : "";
+        lines.push(`${index + 1}. ${code}${row.description || "Ítem"} | Cant: ${row.qty} | P/U: S/ ${money(row.price)} | Importe: S/ ${lineTotal}`);
+      });
+
+      lines.push("");
+      lines.push(`Gravada: S/ ${taxable}`);
+      lines.push(`IGV: S/ ${igv}`);
+      lines.push(`Total: S/ ${total}`);
+      lines.push(`Adelanto: S/ ${advance}`);
+      lines.push(`Saldo: S/ ${balance}`);
+
+      lines.push("");
+      lines.push("DATOS DE PAGO — ÁGORA COMUNICADORES:");
+      lines.push(`Cuenta Bancaria: ${document.getElementById("bankAccount").textContent}`);
+      lines.push(`CCI: ${document.getElementById("bankCci").textContent}`);
+      lines.push(`Yape / Plin: ${document.getElementById("digitalWallet").textContent}`);
+
+      if (observations) {
+        lines.push("");
+        lines.push(`Observaciones: ${observations}`);
+      }
+
+      lines.push("");
+      lines.push("Documento referencial. No constituye comprobante de pago.");
+
+      const text = lines.join("\n");
+
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Resumen copiado correctamente.");
+      } catch {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+        alert("Resumen copiado correctamente.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
 </body>
+
 </html>
