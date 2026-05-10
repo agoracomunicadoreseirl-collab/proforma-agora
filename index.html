@@ -1599,7 +1599,7 @@
   <script>
     const CONFIG_KEY = "proforma_agora_comunicadores_config_v1";
 
-    const API_URL = "https://script.google.com/macros/s/AKfycbwZxvf3diXKWXR6iGj-1HNdGla6is55-yYg-3bPHpgBhBZtG0uMYf9FTnYNoYYtEMrjhA/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzKg2xdoJKjkPmw89-6Ogqz56xCLFrgX5-zMUOFpQnoXiBtiL7cVGAaoPmUFOuioItSOQ/exec";
     const API_TOKEN = "AGORA_2026_CAMBIAR"; // Debe coincidir con API_TOKEN de Apps Script.
 
     let productSearchTimer = null;
@@ -1909,66 +1909,77 @@
       };
     }
 
-    function apiPostViaIframe(payload) {
-      return new Promise((resolve, reject) => {
-        if (!API_URL || API_URL.includes("PEGA_AQUI")) {
-          reject(new Error("Configura API_URL con la URL /exec de Apps Script."));
-          return;
-        }
-
-        const iframeName = "agoraPostFrame_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
-        const iframe = document.createElement("iframe");
-        iframe.name = iframeName;
-        iframe.style.display = "none";
-
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = API_URL;
-        form.target = iframeName;
-        form.enctype = "application/x-www-form-urlencoded";
-        form.style.display = "none";
-
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "payload";
-        input.value = JSON.stringify(payload);
-        form.appendChild(input);
-
-        const cleanup = () => {
-          window.removeEventListener("message", onMessage);
-          clearTimeout(saveRequestTimer);
-          setTimeout(() => {
-            form.remove();
-            iframe.remove();
-          }, 100);
-        };
-
-        const onMessage = (event) => {
-          const data = event.data || {};
-          if (!data || data.source !== "agora_proforma_api") return;
-          if (data.request_id !== payload.request_id) return;
-
-          cleanup();
-
-          if (data.ok) {
-            resolve(data);
-          } else {
-            reject(new Error(data.message || "No se pudo guardar la proforma."));
-          }
-        };
-
-        window.addEventListener("message", onMessage);
-
-        saveRequestTimer = setTimeout(() => {
-          cleanup();
-          reject(new Error("Apps Script no respondió a tiempo. Revisa la implementación, permisos o token."));
-        }, 30000);
-
-        document.body.appendChild(iframe);
-        document.body.appendChild(form);
-        form.submit();
-      });
+   function apiPostViaIframe(payload) {
+  return new Promise((resolve, reject) => {
+    if (!API_URL || API_URL.includes("PEGA_AQUI")) {
+      reject(new Error("Configura API_URL con la URL /exec de Apps Script."));
+      return;
     }
+
+    const iframeName = "agoraPostFrame_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+
+    const iframe = document.createElement("iframe");
+    iframe.name = iframeName;
+    iframe.style.display = "none";
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = API_URL;
+    form.target = iframeName;
+    form.enctype = "application/x-www-form-urlencoded";
+    form.style.display = "none";
+
+    function addHidden(name, value) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value ?? "";
+      form.appendChild(input);
+    }
+
+    payload.response_mode = "postMessage";
+
+    addHidden("payload", JSON.stringify(payload));
+    addHidden("response_mode", "postMessage");
+    addHidden("request_id", payload.request_id || "");
+    addHidden("token", payload.token || API_TOKEN);
+
+    const cleanup = () => {
+      window.removeEventListener("message", onMessage);
+      clearTimeout(saveRequestTimer);
+      setTimeout(() => {
+        form.remove();
+        iframe.remove();
+      }, 100);
+    };
+
+    const onMessage = (event) => {
+      const data = event.data || {};
+
+      if (!data || data.source !== "agora_proforma_api") return;
+      if (data.request_id !== payload.request_id) return;
+
+      cleanup();
+
+      if (data.ok) {
+        resolve(data);
+      } else {
+        reject(new Error(data.message || "No se pudo guardar la proforma."));
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+
+    saveRequestTimer = setTimeout(() => {
+      cleanup();
+      reject(new Error("Apps Script no respondió a tiempo. Verifica que el /exec sea el nuevo, que la implementación esté publicada como Web App, que tenga permisos y que el token coincida."));
+    }, 90000);
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+  });
+}
 
     async function guardarProforma() {
       clearSaveStatus();
